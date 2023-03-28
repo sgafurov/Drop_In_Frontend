@@ -24,6 +24,8 @@ function App() {
   })
 
   function updateAddress(newAddress) {
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
     //console.log('getting child address data in app.js:', newAddress)
     setAddress(...address, address => newAddress)
   }
@@ -52,6 +54,7 @@ function App() {
     </div>
   );
 }
-
-export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API}&libraries=places`])(App);
-// export default App
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+// ${process.env.GOOGLE_MAPS_API_KEY}
+ export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`])(App);
+ //export default App

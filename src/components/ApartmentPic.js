@@ -3,6 +3,7 @@ import React from 'react';
 import Streetview from 'react-google-streetview';
 
 export default function ApartmentPic(){
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
     const streetViewPanoramaOptions = {
 
@@ -15,7 +16,7 @@ export default function ApartmentPic(){
     };
     return(
         <Streetview
-            apiKey={process.env.REACT_APP_GOOGLE_MAP_API}
+            apiKey={apiKey}
             streetViewPanoramaOptions={streetViewPanoramaOptions}
         />
     )

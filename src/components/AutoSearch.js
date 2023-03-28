@@ -16,7 +16,6 @@ function AutoSearch(props, isScriptLoaded, isScriptLoadSucceed) {
 
     const [userInput, setUserInput] = useState('')
 
-
     const [coordinates, setCoordinates] = useState({
         lat: null,
         lng: null,
@@ -106,5 +105,6 @@ function AutoSearch(props, isScriptLoaded, isScriptLoadSucceed) {
             <div>NOT loaded</div>
         )
     }
-}
-export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API}&libraries=places`])(AutoSearch);
+}    
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`])(AutoSearch);
