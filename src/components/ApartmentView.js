@@ -2,7 +2,7 @@ import React from "react";
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 import Navbar from "./Navbar";
 import Map from "./Map";
-import ApartmentPic from "./ApartmentPic";
+import ApartmentStreetview from "./ApartmentStreetview";
 import Reviews from "./review/Reviews";
 import "../styles/ApartmentView.css";
 
@@ -26,7 +26,7 @@ export default function ApartmentView(props) {
         <div className="apt-visuals">
           <div className="apt-pic">
             <div className="streetview">
-              <ApartmentPic />
+              <ApartmentStreetview />
             </div>
           </div>
 
