@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom"
 import Navbar from "../Navbar"
 import "../../styles/Login.css"
+import { BASE_URL } from "../../constants"
 
 export default function Login(props) {
 	let navigate = useNavigate()
@@ -34,7 +35,7 @@ export default function Login(props) {
 		setRedirect(true)
 
 		try {
-			const res = await fetch(`https://dropin-backend.herokuapp.com/login`, {
+			const res = await fetch(`${BASE_URL}/users/login`, {
 				method: 'POST',
 				mode: 'cors',
 				headers: {
@@ -43,7 +44,7 @@ export default function Login(props) {
 				body: JSON.stringify(loginData) //login data is currently a JS object. so you have to send it as JSON object
 			})
 			const resObject = await res.json()
-			console.log('line 41 of login', resObject)
+			console.log('line 47 of login', resObject)
 			if (resObject.status == 400) {
 				throw resObject
 			}
@@ -53,7 +54,7 @@ export default function Login(props) {
 			localStorage.setItem('username', loginData.username)
 			updateUserData(resObject)
 		} catch (err) {
-			console.log('line 47 of register error', err)
+			console.log('line 57 of register error', err)
 			if (err.status == 400) {
 				alert(err.message)
 			}
