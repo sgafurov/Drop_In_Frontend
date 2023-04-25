@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../images/landing-background2.png";
 import Logo from "../images/logo2.png";
-import "../styles/Navbar.css"
 
 export default function Navbar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
