@@ -41,6 +41,8 @@ function App() {
     setLoginData(prevData => newData)
   }
 
+  // just adding comment here to trigger automatic deployment on Cloudflare pages
+  
   return (
     <div className="App">
       <Router>
