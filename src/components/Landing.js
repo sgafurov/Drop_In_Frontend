@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import BackgroundImage from '../images/background-with-buildings-pinned.png'
 import AutoSearch from './AutoSearch'
 import Navbar from './Navbar.js'
-
 import '../styles/Landing.css'
 
 export default function Landing(props) {
@@ -33,9 +32,9 @@ export default function Landing(props) {
 
              {/* <Navbar /> */}
 
-            <div>
-                <img className='landing-background' src={BackgroundImage} alt='' />
-            </div>
+            {/* <div>
+                <img className='landing-background' src={BackgroundImage} alt=''/>
+            </div> */}
 
             <div className='landing-search'>
                 <h1 className='landing-title'>DROP-IN</h1>
