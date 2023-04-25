@@ -44,17 +44,21 @@ function App() {
   // just adding comment here to trigger automatic deployment on Cloudflare pages
   
   return (
-    <div className="App">
-      <Router>
-      <Navbar/>
-        <Routes className='routes'>
-          <Route exact path="/" element={<Landing updateAddress={updateAddress} updateCoordinates={updateCoordinates} />} />
-          <Route exact path="/apartment-view" element={<ApartmentView address={address} coordinates={coordinates} />} />
-          <Route exact path="/login" element={<Login updateUserData={updateUserData}/>} />
-          <Route exact path="/signup" element={<SignUp updateUserData={updateUserData} />} />
-          <Route exact path="/user-dashboard" element={<UserDashboard loginData={loginData} />} />
-        </Routes>
-      </Router>
+    // <div className="App">
+    //   <Router>
+    //   <Navbar/>
+    //     <Routes className='routes'>
+    //       <Route exact path="/" element={<Landing updateAddress={updateAddress} updateCoordinates={updateCoordinates} />} />
+    //       <Route exact path="/apartment-view" element={<ApartmentView address={address} coordinates={coordinates} />} />
+    //       <Route exact path="/login" element={<Login updateUserData={updateUserData}/>} />
+    //       <Route exact path="/signup" element={<SignUp updateUserData={updateUserData} />} />
+    //       <Route exact path="/user-dashboard" element={<UserDashboard loginData={loginData} />} />
+    //     </Routes>
+    //   </Router>
+    // </div>
+
+    <div>
+      <h1>Hello World!</h1>
     </div>
   );
 }
