@@ -27,9 +27,7 @@ export default function Landing(props) {
     }
 
     return (
-
         <div className='landing-page'>
-
              {/* <Navbar /> */}
 
             {/* <div>
@@ -42,8 +40,6 @@ export default function Landing(props) {
                 <AutoSearch updateAddress={updateAddress} updateCoordinates={updateCoordinates} />
 
             </div>
-
         </div >
-
     )
 }

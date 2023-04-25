@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../images/landing-background2.png";
-// import BackgroundImage from '../images/apartment-skyline.jpg'
 import Logo from "../images/logo2.png";
-import "../styles/navbar.css";
+import "../styles/Navbar.css";
 
 export default function Navbar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,9 +28,9 @@ export default function Navbar(props) {
 
   return (
     <div className="navbar">
-      <div>
+      {/* <div>
         <img className="nav-img" src={BackgroundImage} alt="NYC Apartments" />
-      </div>
+      </div> */}
       <div className="nav-buttons">
         <div className="nav-home-btn">
           {" "}

@@ -1,28 +1,5 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Lexend+Peta:wght@300;400;600;700&display=swap'); */
 
-body {
-    /* background-image: url('../images/map-of-nyc2.png') no-repeat center center fixed; */
-    background-image: url("../images/background-with-buildings-pinned.png");
-    /* background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    position: absolute;
-    object-fit: cover;
-    z-index: -1;
-    min-height: 100%;
-    min-width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto; */
-    /* -webkit-filter: saturate(400%);
-    filter: saturate(400%); */
-    z-index: 100;
-}
-
 .landing-search {
     align-items: center;
     position: fixed;
