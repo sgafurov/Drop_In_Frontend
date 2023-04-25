@@ -31,7 +31,7 @@ export default function Landing(props) {
 
         <div className='landing-page'>
 
-             <Navbar />
+             {/* <Navbar /> */}
 
             <div>
                 <img className='landing-background' src={BackgroundImage} alt='' />

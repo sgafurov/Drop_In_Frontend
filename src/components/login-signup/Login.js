@@ -63,7 +63,8 @@ export default function Login(props) {
 
 	return (
 		<div>
-			<Navbar />
+			{/* <Navbar /> */}
+			
 			<div className="login-box">
 
 				<form onSubmit={handleSubmit} className="login-form">

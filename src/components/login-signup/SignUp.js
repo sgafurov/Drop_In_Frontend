@@ -56,29 +56,6 @@ export default function SignUp(props) {
         console.log("res.json() = ", resObject);
         alert("Account created");
         navigate("/login");
-
-      // var data = JSON.stringify(userData);
-
-      // var config = {
-      //   method: "post",
-      //   url:
-      //     "https://us-east-1.aws.data.mongodb-api.com/app/data-wiwke/endpoint/data/v1/action/insertOne",
-      //   withCredentials: false,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "api-key":
-      //       "RMe3BFadvAm91puSpQREVs10YAAeNyMONplZNisIqRcZi6pB51rmpm8ehFPnK2Fl",
-      //   },
-      //   data: data,
-      // };
-
-      // axios(config)
-      //   .then(function(response) {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error);
-      //   });
     } catch (err) {
       console.log("SignUp register error = ", err);
       if (err.status == 400) {
@@ -91,7 +68,7 @@ export default function SignUp(props) {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="login-box">
         {/* <img src={logo} className="logo"/> */}
 

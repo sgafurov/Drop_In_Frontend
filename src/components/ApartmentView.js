@@ -14,7 +14,7 @@ export default function ApartmentView(props) {
   return (
     <>
       {/* RENDER NAVBAR */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="apt-view-div">
         <div className="apt-address">

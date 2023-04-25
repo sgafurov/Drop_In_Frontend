@@ -7,6 +7,7 @@ import Login from "./components/login-signup/Login"
 import SignUp from "./components/login-signup/SignUp"
 import UserDashboard from "./components/user/UserDashboard"
 import scriptLoader from 'react-async-script-loader'
+import Navbar from './components/Navbar';
 
 function App() {
   const [address, setAddress] = useState('')
@@ -43,6 +44,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+      <Navbar/>
         <Routes className='routes'>
           <Route exact path="/" element={<Landing updateAddress={updateAddress} updateCoordinates={updateCoordinates} />} />
           <Route exact path="/apartment-view" element={<ApartmentView address={address} coordinates={coordinates} />} />
