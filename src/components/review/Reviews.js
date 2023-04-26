@@ -32,40 +32,40 @@ export default function Reviews() {
     }
 
     const getReviewsFromBackend = async () => {
-        try {
-            const res = await fetch(`https://dropin-backend.herokuapp.com/building-reviews`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    building_id: placeID
-                })
-            })
-            const resObject = await res.json()
+        // try {
+        //     const res = await fetch(`https://dropin-backend.herokuapp.com/building-reviews`, {
+        //         method: 'POST',
+        //         mode: 'cors',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             building_id: placeID
+        //         })
+        //     })
+        //     const resObject = await res.json()
 
-            console.log('line 49 of rendering reviews', resObject)
+        //     console.log('line 49 of rendering reviews', resObject)
 
-            if (resObject.status == 400) {
-                throw resObject
-            }
+        //     if (resObject.status == 400) {
+        //         throw resObject
+        //     }
 
-            //set the reviews to be the response of array of addresses received from the backend
-            for (let i = 0; i < resObject.length; i++) {
-                setUserReviews(prev => [...prev, {
-                    body: resObject[i].comment_body,
-                    author: resObject[i].username,
-                    timestamp: resObject[i].timestamp
-                }])
-            }
+        //     //set the reviews to be the response of array of addresses received from the backend
+        //     for (let i = 0; i < resObject.length; i++) {
+        //         setUserReviews(prev => [...prev, {
+        //             body: resObject[i].comment_body,
+        //             author: resObject[i].username,
+        //             timestamp: resObject[i].timestamp
+        //         }])
+        //     }
 
-        } catch (err) {
-            console.log('error : line 61 of rendering reviews', err)
-            if (err.status == 400) {
-                alert(err.message)
-            }
-        }
+        // } catch (err) {
+        //     console.log('error : line 61 of rendering reviews', err)
+        //     if (err.status == 400) {
+        //         alert(err.message)
+        //     }
+        // }
     }
 
     return (
