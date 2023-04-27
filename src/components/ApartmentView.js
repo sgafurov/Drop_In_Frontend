@@ -2,7 +2,7 @@ import React from "react";
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 import Navbar from "./Navbar";
 import Map from "./Map";
-import ApartmentStreetview from "./ApartmentStreetview";
+import Streetview from "./Streetview";
 import Reviews from "./review/Reviews";
 import "../styles/ApartmentView.css";
 
@@ -13,7 +13,6 @@ export default function ApartmentView(props) {
 
   return (
     <>
-      {/* RENDER NAVBAR */}
       {/* <Navbar /> */}
 
       <div className="apt-view-div">
@@ -22,23 +21,15 @@ export default function ApartmentView(props) {
           {/* <h1>address: {props.address}</h1> */}
         </div>
 
-        {/* RENDER STREETVIEW OF ADDRESS */}
         <div className="apt-visuals">
           <div className="apt-pic">
             <div className="streetview">
-              <ApartmentStreetview />
+              <Streetview />
             </div>
           </div>
 
-          {/* RENDER MAP OF ADDRESS */}
           <div className="apt-map">
-            <WrappedMap
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&
-                            libraries=geometry.drawing.places&key=${apiKey}`}
-              loadingElement={<div style={{ height: "100%" }} />}
-              containerElement={<div style={{ height: "100%" }} />}
-              mapElement={<div style={{ height: "100%" }} />}
-            />
+            <Map />
           </div>
         </div>
 

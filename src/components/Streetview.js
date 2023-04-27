@@ -18,7 +18,7 @@ const center = {
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-function Map() {
+function Streetview() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
@@ -47,13 +47,16 @@ function Map() {
         onUnmount={onUnmount}
       >
         {/* Child components, such as markers, info windows, etc. */}
-        <MarkerF position={center}></MarkerF>
+        <StreetViewPanorama position={center} visible={true} />
       </GoogleMap>
     </div>
   ) : (
-    <div><h1>Map not loading</h1></div>
+    <div>
+      <h1>Streetview not loading</h1>
+    </div>
   );
 }
 
-// export default React.memo(Map);
-export default Map;
+// export default React.memo(Streetview);
+
+export default Streetview;
