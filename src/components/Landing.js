@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-// import BackgroundImage from '../images/map-of-nyc2.png'
-import BackgroundImage from '../images/background-with-buildings-pinned.png'
 import AutoSearch from './AutoSearch'
 import '../styles/Landing.css'
 import OneView from './OneView'
@@ -11,7 +8,7 @@ export default function Landing(props) {
     const localStorageItem = localStorage.getItem('isLoggedIn')
 
     useEffect(() => {
-        if (localStorageItem == 'yes') {
+        if (localStorageItem === 'yes') {
             setIsLoggedIn(true)
         }
     },[])

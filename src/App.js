@@ -7,7 +7,7 @@ import Login from "./components/login-signup/Login"
 import SignUp from "./components/login-signup/SignUp"
 import UserDashboard from "./components/user/UserDashboard"
 import Navbar from './components/Navbar';
-import scriptLoader from 'react-async-script-loader'
+// import scriptLoader from 'react-async-script-loader'
 
 export default function App() {
   const [address, setAddress] = useState('')
@@ -25,8 +25,6 @@ export default function App() {
   })
 
   function updateAddress(newAddress) {
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-
     //console.log('getting child address data in app.js:', newAddress)
     setAddress(...address, address => newAddress)
   }

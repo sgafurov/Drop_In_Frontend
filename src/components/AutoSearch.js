@@ -10,6 +10,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import Loading from "./Loading";
 const placesLibrary = ["places"];
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -125,8 +126,7 @@ export default function AutoSearch(props) {
   if (isLoading) {
     return (
       <div>
-        <h1>Loading...</h1>
-        {/* enter a spinning house logo here */}
+        <Loading/>
       </div>
     );
   } else {

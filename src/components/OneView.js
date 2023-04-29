@@ -8,7 +8,7 @@ import {
   StreetViewPanorama,
   Autocomplete,
 } from "@react-google-maps/api";
-import PlacesAutocomplete, {
+import {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";

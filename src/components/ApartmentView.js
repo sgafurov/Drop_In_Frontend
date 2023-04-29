@@ -6,11 +6,7 @@ import Streetview from "./Streetview";
 import Reviews from "./review/Reviews";
 import "../styles/ApartmentView.css";
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
-
 export default function ApartmentView(props) {
-  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-
   return (
     <>
       <div className="apt-view-div">
