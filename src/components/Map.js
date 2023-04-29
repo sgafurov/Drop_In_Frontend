@@ -4,7 +4,7 @@ import {
   useJsApiLoader,
   MarkerF,
 } from "@react-google-maps/api";
-import "../styles/OneView.css";
+import "../styles/Map.css";
 
 const placesLibrary = ["places"];
 const containerStyle = {

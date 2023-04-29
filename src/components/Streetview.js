@@ -4,7 +4,7 @@ import {
   useJsApiLoader,
   StreetViewPanorama,
 } from "@react-google-maps/api";
-import "../styles/OneView.css";
+import "../styles/Streetview.css";
 
 const placesLibrary = ["places"];
 const containerStyle = {

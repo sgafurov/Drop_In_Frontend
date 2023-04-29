@@ -20,13 +20,11 @@ export default function ApartmentView(props) {
         </div>
 
         <div className="apt-visuals">
-          <div className="apt-pic">
-            <div className="streetview">
-              <Streetview />
-            </div>
+          <div className="streetview">
+            <Streetview />
           </div>
 
-          <div className="apt-map">
+          <div className="map">
             <Map />
           </div>
         </div>
