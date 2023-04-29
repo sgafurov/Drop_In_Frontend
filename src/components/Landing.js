@@ -5,6 +5,7 @@ import BackgroundImage from '../images/background-with-buildings-pinned.png'
 import AutoSearch from './AutoSearch'
 import Navbar from './Navbar.js'
 import '../styles/Landing.css'
+import OneView from './OneView'
 
 export default function Landing(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -28,16 +29,12 @@ export default function Landing(props) {
 
     return (
         <div className='landing-page'>
-             {/* <Navbar /> */}
-
-            {/* <div>
-                <img className='landing-background' src={BackgroundImage} alt=''/>
-            </div> */}
 
             <div className='landing-search'>
                 <h1 className='landing-title'>DROP-IN</h1>
 
-                <AutoSearch updateAddress={updateAddress} updateCoordinates={updateCoordinates} />
+                {/* <AutoSearch updateAddress={updateAddress} updateCoordinates={updateCoordinates} /> */}
+                <OneView/>
 
             </div>
         </div >
