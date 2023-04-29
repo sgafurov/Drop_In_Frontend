@@ -13,8 +13,6 @@ export default function ApartmentView(props) {
 
   return (
     <>
-      {/* <Navbar /> */}
-
       <div className="apt-view-div">
         <div className="apt-address">
           <h1>{localStorage.getItem("address")}</h1>
@@ -37,7 +35,6 @@ export default function ApartmentView(props) {
         <div className="star-rating">
           {/* Rating: (insert star pic here) */}
         </div>
-
         {/* SHOW REVIEWS OF ADDRESS */}
         <Reviews />
       </div>

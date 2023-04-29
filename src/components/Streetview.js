@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
-  MarkerF,
   StreetViewPanorama,
 } from "@react-google-maps/api";
+import "../styles/OneView.css";
 
+const placesLibrary = ["places"];
 const containerStyle = {
   width: "400px",
   height: "400px",
 };
 
-const center = {
-  lat: JSON.parse(localStorage.getItem("lat")),
-  lng: JSON.parse(localStorage.getItem("lng")),
-};
-
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-function Streetview() {
+export default function Streetview() {
+  const [map, setMap] = useState(null);
+
+  const [center, setCenter] = useState({
+    lat: JSON.parse(localStorage.getItem("lat")),
+    lng: JSON.parse(localStorage.getItem("lng")),
+  });
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
+    libraries: placesLibrary,
   });
 
-  const [map, setMap] = React.useState(null);
+  useEffect(() => {
+    setCenter({
+      lat: JSON.parse(localStorage.getItem("lat")),
+      lng: JSON.parse(localStorage.getItem("lng")),
+    });
+    console.log("Streetview.js useEffect activated");
+  }, []);
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -37,7 +47,7 @@ function Streetview() {
   }, []);
 
   return isLoaded ? (
-    <div>
+    <div className="streetview">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -57,5 +67,3 @@ function Streetview() {
 }
 
 // export default React.memo(Streetview);
-
-export default Streetview;

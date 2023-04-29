@@ -43,7 +43,7 @@ export default function OneView() {
       lat: JSON.parse(localStorage.getItem("lat")),
       lng: JSON.parse(localStorage.getItem("lng")),
     });
-    console.log("searchResult value changed and useEffect activated");
+    console.log("OneView.js useEffect activated");
   }, []);
 
   const onLoad = React.useCallback(function callback(map) {
@@ -124,7 +124,7 @@ export default function OneView() {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={-10}
+            zoom={0}
             onLoad={onLoad}
             onUnmount={onUnmount}
           >
@@ -137,7 +137,7 @@ export default function OneView() {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={1}
+            zoom={0}
             onLoad={onLoad}
             onUnmount={onUnmount}
           >

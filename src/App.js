@@ -6,10 +6,10 @@ import Landing from './components/Landing';
 import Login from "./components/login-signup/Login"
 import SignUp from "./components/login-signup/SignUp"
 import UserDashboard from "./components/user/UserDashboard"
-import scriptLoader from 'react-async-script-loader'
 import Navbar from './components/Navbar';
+import scriptLoader from 'react-async-script-loader'
 
-function App() {
+export default function App() {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({
     lat: null,
@@ -58,7 +58,7 @@ function App() {
     </div>
   );
 }
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-// ${process.env.GOOGLE_MAPS_API_KEY}
- export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`])(App);
- //export default App
+// const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+// // ${process.env.GOOGLE_MAPS_API_KEY}
+//  export default scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`])(App);
+//  //export default App

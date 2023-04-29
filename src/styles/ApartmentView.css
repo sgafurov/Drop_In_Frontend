@@ -26,24 +26,24 @@
     text-align: center;
     font-size: 30px;
 }
-
+/* 
 .apt-pic {
     background-color: teal;
     width: 50%;
     position: relative;
-}
+} */
 
-.streetview {
+/* .streetview {
     position: relative;
     width: 100%;
     height: 100%;
     background-color: #eeeeee;
-}
+} */
 
-.apt-map {
+/* .apt-map {
     background-color: turquoise;
     width: 50%;
-}
+} */
 
 .star-rating {
     margin-top: 5%;

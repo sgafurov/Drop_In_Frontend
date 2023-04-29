@@ -33,8 +33,8 @@ export default function Landing(props) {
             <div className='landing-search'>
                 <h1 className='landing-title'>DROP-IN</h1>
 
-                {/* <AutoSearch updateAddress={updateAddress} updateCoordinates={updateCoordinates} /> */}
-                <OneView/>
+                <AutoSearch updateAddress={updateAddress} updateCoordinates={updateCoordinates} />
+                {/* <OneView/> */}
 
             </div>
         </div >
