@@ -8,15 +8,13 @@ import "../styles/ApartmentView.css";
 
 import { useSelector } from "react-redux";
 
-export default function ApartmentView(props) {
+export default function ApartmentView() {
   const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
 
   return (
     <>
       <div className="apt-view-div">
         <div className="apt-address">
-          {/* <h1>{localStorage.getItem("address")}</h1> */}
-          {/* <h1>address: {props.address}</h1> */}
           <h1>{addressSlice.address}</h1>
         </div>
 

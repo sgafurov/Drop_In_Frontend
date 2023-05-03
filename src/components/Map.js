@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  MarkerF,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import "../styles/Map.css";
 import { useSelector } from "react-redux";
 
@@ -27,8 +23,8 @@ export default function Map() {
 
   const centerRedux = {
     lat: addressSlice.lat,
-    lng: addressSlice.lng
-  }
+    lng: addressSlice.lng,
+  };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -73,5 +69,3 @@ export default function Map() {
     </div>
   );
 }
-
-// export default React.memo(Map);

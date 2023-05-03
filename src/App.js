@@ -15,21 +15,8 @@ import { setAddress, setCoords } from "../src/store/addressSlice.js";
 export default function App() {
   const dispatch = useDispatch();
 
-  const [address, setLocalAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
-  });
-  const [loginData, setLoginData] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    password: "",
-    user_type: "",
-    favorites: "",
-  });
-
   useEffect(() => {
+    // when user refreshes the page, this will add data to our redux states again
     const addressFromStorage = localStorage.getItem("address");
     const coordsFromStorage = {
       lat: localStorage.getItem("lat"),
@@ -46,60 +33,16 @@ export default function App() {
     }
   }, []);
 
-  function updateAddress(newAddress) {
-    //console.log('getting child address data in app.js:', newAddress)
-    setLocalAddress(...address, (address) => newAddress);
-  }
-
-  function updateCoordinates(newCoord) {
-    //console.log('getting child coordinates data in app.js:', newCoord)
-    setCoordinates((coordinates) => newCoord);
-  }
-
-  function updateUserData(newData) {
-    console.log("getting child coordinates data in app.js:", newData);
-    setLoginData((prevData) => newData);
-  }
-
-  // just adding comment here to trigger automatic deployment on Cloudflare pages
-
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Routes className="routes">
-          <Route
-            exact
-            path="/"
-            element={
-              <Landing
-                updateAddress={updateAddress}
-                updateCoordinates={updateCoordinates}
-              />
-            }
-          />
-          <Route
-            exact
-            path="/apartment-view"
-            element={
-              <ApartmentView address={address} coordinates={coordinates} />
-            }
-          />
-          <Route
-            exact
-            path="/login"
-            element={<Login updateUserData={updateUserData} />}
-          />
-          <Route
-            exact
-            path="/signup"
-            element={<SignUp updateUserData={updateUserData} />}
-          />
-          <Route
-            exact
-            path="/user-dashboard"
-            element={<UserDashboard loginData={loginData} />}
-          />
+          <Route exact path="/" element={<Landing />} />
+          <Route exact path="/apartment-view" element={<ApartmentView />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/user-dashboard" element={<UserDashboard />} />
         </Routes>
       </Router>
     </div>

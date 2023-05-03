@@ -7,7 +7,7 @@ import "../../styles/Login.css";
 import { BASE_URL } from "../../constants";
 import AutoSearch from "../AutoSearch";
 
-export default function SignUp(props) {
+export default function SignUp() {
   let navigate = useNavigate();
   const [userData, setUserData] = useState({
     username: "",
@@ -25,10 +25,6 @@ export default function SignUp(props) {
     "https://p1.hiclipart.com/preview/209/923/667/google-logo-background-g-suite-google-pay-google-doodle-text-circle-line-area-png-clipart.jpg";
 
   console.log(userData);
-
-  // function updateUserData(loginData) {
-  // 	props.updateUserData(loginData) //sending it up to App.js
-  // }
 
   const handleChange = (event) => {
     setUserData((prevData) => {
@@ -64,12 +60,10 @@ export default function SignUp(props) {
       }
     }
     setRedirect(true);
-    // updateUserData(loginData)
   };
 
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="login-box">
         {/* <img src={logo} className="logo"/> */}
 

@@ -27,10 +27,10 @@ export default function Streetview() {
 
   const centerRedux = {
     lat: addressSlice.lat,
-    lng: addressSlice.lng
-  }
+    lng: addressSlice.lng,
+  };
 
-  console.log("center redux type: ", addressSlice.lat, typeof addressSlice.lat)
+  console.log("center redux type: ", addressSlice.lat, typeof addressSlice.lat);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -75,5 +75,3 @@ export default function Streetview() {
     </div>
   );
 }
-
-// export default React.memo(Streetview);
