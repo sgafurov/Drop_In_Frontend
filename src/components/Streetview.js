@@ -5,6 +5,7 @@ import {
   StreetViewPanorama,
 } from "@react-google-maps/api";
 import "../styles/Streetview.css";
+import { useSelector } from "react-redux";
 
 const placesLibrary = ["places"];
 const containerStyle = {
@@ -15,12 +16,21 @@ const containerStyle = {
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export default function Streetview() {
+  const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
+
   const [map, setMap] = useState(null);
 
   const [center, setCenter] = useState({
     lat: JSON.parse(localStorage.getItem("lat")),
     lng: JSON.parse(localStorage.getItem("lng")),
   });
+
+  const centerRedux = {
+    lat: addressSlice.lat,
+    lng: addressSlice.lng
+  }
+
+  console.log("center redux type: ", addressSlice.lat, typeof addressSlice.lat)
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -46,17 +56,17 @@ export default function Streetview() {
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  return isLoaded && addressSlice.lat ? (
     <div className="streetview">
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={centerRedux}
         zoom={0}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
         {/* Child components, such as markers, info windows, etc. */}
-        <StreetViewPanorama position={center} visible={true} />
+        <StreetViewPanorama position={centerRedux} visible={true} />
       </GoogleMap>
     </div>
   ) : (

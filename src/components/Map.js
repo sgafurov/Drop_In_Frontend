@@ -5,6 +5,7 @@ import {
   MarkerF,
 } from "@react-google-maps/api";
 import "../styles/Map.css";
+import { useSelector } from "react-redux";
 
 const placesLibrary = ["places"];
 const containerStyle = {
@@ -15,12 +16,19 @@ const containerStyle = {
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export default function Map() {
+  const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
+
   const [map, setMap] = useState(null);
 
   const [center, setCenter] = useState({
     lat: JSON.parse(localStorage.getItem("lat")),
     lng: JSON.parse(localStorage.getItem("lng")),
   });
+
+  const centerRedux = {
+    lat: addressSlice.lat,
+    lng: addressSlice.lng
+  }
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -46,17 +54,17 @@ export default function Map() {
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  return isLoaded && addressSlice.lat ? (
     <div className="map">
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={centerRedux}
         zoom={0}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
         {/* Child components, such as markers, info windows, etc. */}
-        <MarkerF position={center}></MarkerF>
+        <MarkerF position={centerRedux}></MarkerF>
       </GoogleMap>
     </div>
   ) : (

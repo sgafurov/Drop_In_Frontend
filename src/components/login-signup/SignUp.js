@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import "../../styles/Login.css";
-import { BASE_URL } from "../../constants"
+import { BASE_URL } from "../../constants";
+import AutoSearch from "../AutoSearch";
 
 export default function SignUp(props) {
   let navigate = useNavigate();
@@ -42,20 +43,20 @@ export default function SignUp(props) {
     e.preventDefault();
     try {
       const res = await fetch(`${BASE_URL}/users/register`, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        });
-        if (res.status == 400) {
-          throw res.message;
-        }
-        const resObject = await res.json();
-        console.log("res.json() = ", resObject);
-        alert("Account created");
-        navigate("/login");
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      if (res.status == 400) {
+        throw res.message;
+      }
+      const resObject = await res.json();
+      console.log("res.json() = ", resObject);
+      alert("Account created");
+      navigate("/login");
     } catch (err) {
       console.log("SignUp register error = ", err);
       if (err.status == 400) {
@@ -99,7 +100,7 @@ export default function SignUp(props) {
           <label>
             <input
               className="login-input"
-              placeholder="Password"
+              placeholder="Create A Password"
               type="text"
               name="password"
               value={userData.password}
@@ -135,6 +136,7 @@ export default function SignUp(props) {
               value={userData.address}
               onChange={handleChange}
             />
+            {/* <AutoSearch/> */}
           </label>
 
           <h3>I am a</h3>

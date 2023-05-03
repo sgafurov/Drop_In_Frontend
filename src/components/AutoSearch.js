@@ -11,10 +11,15 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import Loading from "./Loading";
+
+import { useDispatch } from "react-redux";
+import { setAddress, setCoords } from "../store/addressSlice";
+
 const placesLibrary = ["places"];
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export default function AutoSearch(props) {
+  let dispatch = useDispatch();
   let navigate = useNavigate();
 
   const [map, setMap] = useState(null);
@@ -35,7 +40,7 @@ export default function AutoSearch(props) {
   });
 
   useEffect(() => {
-    props.updateCoordinates(center);
+    // props.updateCoordinates(center);
     setCenter({
       lat: JSON.parse(localStorage.getItem("lat")),
       lng: JSON.parse(localStorage.getItem("lng")),
@@ -101,6 +106,9 @@ export default function AutoSearch(props) {
           console.log("Success from geocodeByAddress", latLng);
           localStorage.setItem("lat", latLng.lat);
           localStorage.setItem("lng", latLng.lng);
+
+          dispatch(setCoords({ lat: latLng.lat, lng: latLng.lng })); //what we pass into setCoords is the "payload"
+
           console.log("Lat from localStorage ", localStorage.getItem("lat"));
           console.log("Lng from localStorage ", localStorage.getItem("lng"));
           setCenter({
@@ -111,6 +119,9 @@ export default function AutoSearch(props) {
         .catch((error) => console.error("Error", error));
 
       localStorage.setItem("address", formatted_address);
+
+      dispatch(setAddress(formatted_address));
+
       setSearchResult(formatted_address);
       console.log(`Name: ${name}`);
       console.log(`Formatted Address: ${formatted_address}`);
@@ -118,18 +129,19 @@ export default function AutoSearch(props) {
       alert("Please enter an address");
     }
     setIsLoading(true); // show the loading screen
-    setTimeout(() => {
-      navigate("/apartment-view");
-    }, 3000);
+    // setTimeout(() => {
+    //   navigate("/apartment-view");
+    // }, 3000);
+    navigate("/apartment-view");
   }
 
-  if (isLoading) {
-    return (
-      <div>
-        <Loading/>
-      </div>
-    );
-  } else {
+  // if (isLoading) {
+  //   return (
+  //     <div>
+  //       <Loading />
+  //     </div>
+  //   );
+  // } else {
     return isLoaded ? (
       <div className="autocomplete">
         <Autocomplete
@@ -157,5 +169,5 @@ export default function AutoSearch(props) {
     ) : (
       <div>Loading...</div>
     );
-  }
+  // }
 }
