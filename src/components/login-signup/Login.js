@@ -2,11 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Navbar";
 import "../../styles/Login.css";
 import { BASE_URL } from "../../constants";
 
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../../store/userSlice";
+
 export default function Login() {
+  let dispatch = useDispatch();
   let navigate = useNavigate();
 
   const [redirect, setRedirect] = useState(false);
@@ -46,6 +49,7 @@ export default function Login() {
         throw resObject;
       }
       navigate("/user-dashboard");
+      dispatch(setIsLoggedIn(true));
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("username", loginData.username);
     } catch (err) {

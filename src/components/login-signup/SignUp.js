@@ -2,14 +2,23 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Navbar";
 import "../../styles/Login.css";
 import { BASE_URL } from "../../constants";
-import AutoSearch from "../AutoSearch";
+import SearchBar from "./SearchBar.js";
+
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../../store/userSlice";
+import { useSelector } from "react-redux";
 
 export default function SignUp() {
+  const userSlice = useSelector((state) => state.userSlice);
+
+  let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [userData, setUserData] = useState({
+
+  const [redirect, setRedirect] = useState(false);
+
+  const [formData, setFormData] = useState({
     username: "",
     password: "",
     email: "",
@@ -17,17 +26,20 @@ export default function SignUp() {
     lastname: "",
     address: "",
     user_type: "",
-    // favorites: ""
   });
-  const [redirect, setRedirect] = useState(false);
 
   const google_logo =
     "https://p1.hiclipart.com/preview/209/923/667/google-logo-background-g-suite-google-pay-google-doodle-text-circle-line-area-png-clipart.jpg";
 
-  console.log(userData);
+  console.log(formData);
 
   const handleChange = (event) => {
-    setUserData((prevData) => {
+    let updatedFormData = {
+      ...formData,
+      address: userSlice.address,
+    };
+    setFormData(updatedFormData);
+    setFormData((prevData) => {
       return {
         ...prevData,
         [event.target.name]: event.target.value,
@@ -44,7 +56,7 @@ export default function SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(formData),
       });
       if (res.status == 400) {
         throw res.message;
@@ -52,6 +64,17 @@ export default function SignUp() {
       const resObject = await res.json();
       console.log("res.json() = ", resObject);
       alert("Account created");
+      dispatch(
+        setUserInfo({
+          username: formData.username,
+          password: formData.password,
+          email: formData.email,
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          address: userSlice.address,
+          user_type: formData.user_type,
+        })
+      );
       navigate("/login");
     } catch (err) {
       console.log("SignUp register error = ", err);
@@ -71,13 +94,14 @@ export default function SignUp() {
           <h1 className="login-title">DROP-IN</h1>
 
           <h1 className="login-msg">Create an account</h1>
+
           <label>
             <input
               className="login-input"
               placeholder="Email"
               type="text"
               name="email"
-              value={userData.email}
+              value={formData.email}
               onChange={handleChange}
             />
           </label>
@@ -87,17 +111,17 @@ export default function SignUp() {
               placeholder="Username"
               type="text"
               name="username"
-              value={userData.username}
+              value={formData.username}
               onChange={handleChange}
             />
           </label>
           <label>
             <input
               className="login-input"
-              placeholder="Create A Password"
+              placeholder="Create a Password"
               type="text"
               name="password"
-              value={userData.password}
+              value={formData.password}
               onChange={handleChange}
             />
           </label>
@@ -107,7 +131,7 @@ export default function SignUp() {
               placeholder="First Name"
               type="text"
               name="firstname"
-              value={userData.firstname}
+              value={formData.firstname}
               onChange={handleChange}
             />
           </label>
@@ -117,20 +141,20 @@ export default function SignUp() {
               placeholder="Last Name"
               type="text"
               name="lastname"
-              value={userData.lastname}
+              value={formData.lastname}
               onChange={handleChange}
             />
           </label>
           <label>
-            <input
+            {/* <input
               className="login-input"
               placeholder="Address"
               type="text"
               name="address"
-              value={userData.address}
+              value={formData.address}
               onChange={handleChange}
-            />
-            {/* <AutoSearch/> */}
+            /> */}
+            <SearchBar />
           </label>
 
           <h3>I am a</h3>

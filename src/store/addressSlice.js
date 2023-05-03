@@ -9,10 +9,10 @@ const initialState = {
 
 export const addressSlice = createSlice({
     name: "addressSlice",
-    initialState: initialState,
-    reducers: {
+    initialState,
+    reducers: { // the functions that change the state / the updaters
         // state is the object
-        // action is object with payload property
+        // action is an object with payload property
         setAddress: (state, action) => {
             state.address = action.payload // the payload the data we are sending to here
         },
@@ -20,7 +20,7 @@ export const addressSlice = createSlice({
             state.lat = action.payload.lat
             state.lng = action.payload.lng
         }
-    } // things that change the state / updater
+    }
 })
 
 export const {setAddress, setCoords} = addressSlice.actions // we will import actions in our components to use the actions

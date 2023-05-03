@@ -5,7 +5,7 @@ import BackgroundImage from "../images/landing-background2.png";
 import Logo from "../images/logo2.png";
 import "../styles/Navbar.css";
 
-export default function Navbar(props) {
+export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   let navigate = useNavigate();

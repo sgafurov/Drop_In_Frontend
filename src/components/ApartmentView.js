@@ -1,6 +1,5 @@
 import React from "react";
 import { withScriptjs, withGoogleMap } from "react-google-maps";
-import Navbar from "./Navbar";
 import Map from "./Map";
 import Streetview from "./Streetview";
 import Reviews from "./review/Reviews";
