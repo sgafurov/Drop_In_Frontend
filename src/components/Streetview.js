@@ -4,12 +4,11 @@ import {
   useJsApiLoader,
   StreetViewPanorama,
 } from "@react-google-maps/api";
-import "../styles/Streetview.css";
 import { useSelector } from "react-redux";
 
 const placesLibrary = ["places"];
 const containerStyle = {
-  width: "400px",
+  width: "420px",
   height: "400px",
 };
 
@@ -57,7 +56,7 @@ export default function Streetview() {
   }, []);
 
   return isLoaded && addressSlice.lat ? (
-    <div className="streetview">
+    <div>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={centerRedux}

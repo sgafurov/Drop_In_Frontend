@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
-import "../styles/Map.css";
 import { useSelector } from "react-redux";
 
 const placesLibrary = ["places"];
 const containerStyle = {
-  width: "400px",
+  width: "420px",
   height: "400px",
 };
 
@@ -51,7 +50,7 @@ export default function Map() {
   }, []);
 
   return isLoaded && addressSlice.lat ? (
-    <div className="map">
+    <div>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={centerRedux}

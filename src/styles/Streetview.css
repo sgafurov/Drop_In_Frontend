@@ -1,6 +1,0 @@
-.streetview {
-    width: 100%;
-    /* make both the map and streetview divs take up the full width of their parent container */
-    height: 400px;
-    /* set the height of the divs */
-}

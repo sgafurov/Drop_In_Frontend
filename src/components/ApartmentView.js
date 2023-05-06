@@ -18,20 +18,15 @@ export default function ApartmentView() {
         </div>
 
         <div className="apt-visuals">
-          <div className="streetview">
+          <div className="streetview-div">
             <Streetview />
           </div>
 
-          <div className="map">
+          <div className="map-div">
             <Map />
           </div>
         </div>
 
-        {/* SHOW RATING OF ADDRESS */}
-        <div className="star-rating">
-          {/* Rating: (insert star pic here) */}
-        </div>
-        {/* SHOW REVIEWS OF ADDRESS */}
         <Reviews />
       </div>
     </>
