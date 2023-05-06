@@ -48,7 +48,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${BASE_URL}/users/register`, {
+      const res = await fetch(`${BASE_URL}/user/register`, {
         method: "POST",
         mode: "cors",
         headers: {

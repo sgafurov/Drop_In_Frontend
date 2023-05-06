@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import Rating from "./Rating";
 import { useSelector } from "react-redux";
 import "../../styles/ReviewForm.css";
+import { BASE_URL } from "../../constants";
 
 import { useDispatch } from "react-redux";
 import { setReview } from "../../store/reviewSlice";
@@ -16,7 +17,6 @@ export default function ReviewForm(props) {
   const userSlice = useSelector((state) => state.userSlice);
 
   const unique_id = uuid();
-  const placeID = localStorage.getItem("placeID");
   const address = localStorage.getItem("address");
 
   const [currentReview, setCurrentReview] = useState({
@@ -73,7 +73,7 @@ export default function ReviewForm(props) {
     }));
 
     try {
-      const res = await fetch(`https://dropin-backend.herokuapp.com/review`, {
+      const res = await fetch(`${BASE_URL}/review/postReview`, {
         method: "POST",
         mode: "cors",
         headers: {

@@ -35,7 +35,7 @@ export default function Login() {
     setRedirect(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/users/login`, {
+      const res = await fetch(`${BASE_URL}/user/login`, {
         method: "POST",
         mode: "cors",
         headers: {
