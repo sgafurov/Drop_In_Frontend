@@ -6,7 +6,7 @@ import "../../styles/Login.css";
 import { BASE_URL } from "../../constants";
 
 import { useDispatch } from "react-redux";
-import { setIsLoggedIn } from "../../store/userSlice";
+import { setUserInfo, setIsLoggedIn } from "../../store/userSlice";
 
 export default function Login() {
   let dispatch = useDispatch();
@@ -50,8 +50,18 @@ export default function Login() {
       }
       navigate("/user-dashboard");
       dispatch(setIsLoggedIn(true));
+      dispatch(
+        setUserInfo({
+          username: resObject.username,
+          password: resObject.password,
+          email: resObject.email,
+          firstname: resObject.firstname,
+          lastname: resObject.lastname,
+          address: resObject.address,
+          user_type: resObject.user_type,
+        })
+      );
       localStorage.setItem("isLoggedIn", true);
-      localStorage.setItem("username", loginData.username);
     } catch (err) {
       console.log("line 57 of register error", err);
       if (err.status == 400) {

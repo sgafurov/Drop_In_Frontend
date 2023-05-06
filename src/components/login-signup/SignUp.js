@@ -16,8 +16,6 @@ export default function SignUp() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const [redirect, setRedirect] = useState(false);
-
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -71,18 +69,18 @@ export default function SignUp() {
           email: formData.email,
           firstname: formData.firstname,
           lastname: formData.lastname,
-          address: userSlice.address,
+          address: userSlice.address, //getting updated with a redux state
           user_type: formData.user_type,
         })
       );
       navigate("/login");
     } catch (err) {
-      console.log("SignUp register error = ", err);
+      console.log("SignUp error = ", err);
+      alert(err);
       if (err.status == 400) {
         alert(err.message);
       }
     }
-    setRedirect(true);
   };
 
   return (

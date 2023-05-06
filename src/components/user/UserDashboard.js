@@ -18,7 +18,6 @@ export default function UserDashboard() {
 
   return (
     <div className="user-dashboard">
-      {/* <h1>Hi, {usernameLocalStorage}</h1> */}
       <h1>Hi, {userSlice.username}</h1>
       <div className="content-div">
         <button onClick={() => setClickedMyReviews(true)}>My Reviews</button>
