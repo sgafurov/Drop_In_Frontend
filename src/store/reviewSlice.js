@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  username:"",
+  address:"",
   review_id: "",
-  address: "",
-  comment_body: "",
-  star_rating: null,
-  timestamp: "",
+  review_body: "",
+  rating: null,
 };
 
 export const reviewSlice = createSlice({
@@ -13,11 +13,11 @@ export const reviewSlice = createSlice({
   initialState,
   reducers: {
     setReview: (state, action) => {
-      state.review_id = action.payload.review_id;
+      state.username = action.payload.username;
       state.address = action.payload.address;
-      state.comment_body = action.payload.comment_body;
-      state.star_rating = action.payload.star_rating;
-      state.timestamp = action.payload.timestamp;
+      state.review_id = action.payload.review_id;
+      state.review_body = action.payload.review_body;
+      state.rating = action.payload.rating;
     },
   },
 });

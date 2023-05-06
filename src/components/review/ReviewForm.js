@@ -12,30 +12,36 @@ import { useDispatch } from "react-redux";
 import { setReview } from "../../store/reviewSlice";
 import { setIsLoggedIn } from "../../store/userSlice";
 
-export default function ReviewForm(props) {
+export default function ReviewForm() {
   let dispatch = useDispatch();
   if (localStorage.getItem("isLoggedIn") == true) {
     dispatch(setIsLoggedIn(true));
   }
-  let isLoggedIn = false
+  let isLoggedIn = false;
   if (localStorage.getItem("isLoggedIn") == "true") {
-    isLoggedIn = true
+    isLoggedIn = true;
   }
 
-  const userSlice = useSelector((state) => state.userSlice);
-
   const unique_id = uuid();
-  const address = localStorage.getItem("address");
+  const localUsername = localStorage.getItem("username");
+  const localAddress = localStorage.getItem("address");
 
   const [currentReview, setCurrentReview] = useState({
+    username: localUsername,
+    address: localAddress,
     review_id: unique_id,
-    address: address,
-    comment_body: "",
-    star_rating: 0,
-    timestamp: Math.floor(Date.now() / 1000),
+    review_body: "",
+    rating: 0,
   });
 
   const handleChange = (event) => {
+    let localRating = localStorage.getItem("rating");
+    console.log("localRating ", localRating);
+    let updatedRating = {
+      ...currentReview,
+      rating: localRating,
+    };
+    setCurrentReview(updatedRating);
     setCurrentReview((prevData) => {
       return {
         ...prevData,
@@ -50,10 +56,7 @@ export default function ReviewForm(props) {
 
     // setCurrentReview(prev => ({
     //     ...prev,
-    //     //username, comment_body are being set in the form via on change function
-    //     //star_rating is being set through the Rating.js component
-    //     review_id: unique_id,
-    //     building_id: placeID,
+    //     // review_id: unique_id,
     //     timestamp: (Math.floor(Date.now() / 1000))
     // }))
 
@@ -61,24 +64,6 @@ export default function ReviewForm(props) {
       alert("Provide a star rating");
       return;
     }
-
-    //send this review up to its parent component (Reviews.js) so that all of the reviews can be rendered and mapped on the page
-    props.setUserReviews((prev) => [
-      ...prev,
-      {
-        body: currentReview.comment_body,
-        author: currentReview.username,
-        timestamp: currentReview.timestamp,
-      },
-    ]);
-
-    //reset form to look empty
-    setCurrentReview((prev) => ({
-      ...prev,
-      username: "",
-      comment_body: "",
-      star_rating: 0,
-    }));
 
     try {
       const res = await fetch(`${BASE_URL}/review/postReview`, {
@@ -91,7 +76,7 @@ export default function ReviewForm(props) {
       });
 
       const resObject = await res.json();
-      console.log("line 77 of review form", resObject);
+      console.log("line 88 of review form", resObject);
 
       if (resObject.status == 400) {
         throw resObject;
@@ -100,29 +85,41 @@ export default function ReviewForm(props) {
 
       dispatch(
         setReview({
+          username: localUsername,
+          address: localAddress,
           review_id: currentReview.review_id,
-          address: currentReview.address,
-          comment_body: currentReview.comment_body,
-          star_rating: currentReview.star_rating,
-          timestamp: currentReview.timestamp,
+          review_body: currentReview.review_body,
+          star_rating: currentReview.rating,
         })
       );
     } catch (err) {
-      console.log("error : line 85 of review form", err);
+      console.log("error : line 105 of review form", err);
       if (err.status == 400) {
         alert(err.message);
       }
     }
+
+    //reset form to look empty
+    setCurrentReview((prev) => ({
+      ...prev,
+      username: "",
+      address: "",
+      review_body: "",
+      rating: 0,
+    }));
+
+    localStorage.setItem("rating", 0)
   };
 
   return isLoggedIn ? (
     <>
       <form onSubmit={handleSubmit} className="review-form">
+        <Rating />
         <input
           className="review-textbox"
-          name="comment_body"
+          name="review_body"
           placeholder="Leave a review"
-          value={currentReview.comment_body}
+          value={currentReview.review_body}
           onChange={handleChange}
         />
         {/* <input
@@ -132,11 +129,6 @@ export default function ReviewForm(props) {
           value={currentReview.username}
           onChange={handleChange}
         /> */}
-        <Rating
-          currentReview={currentReview}
-          setCurrentReview={setCurrentReview}
-        />
-        <h1>{currentReview.star_rating}</h1>
         <button type="submit" className="review-submit-btn">
           SUBMIT
         </button>
@@ -148,15 +140,12 @@ export default function ReviewForm(props) {
         <input
           readOnly
           className="logged-out-review-textbox"
-          name="comment_body"
+          name="review_body"
           placeholder="Sign in to leave a review"
         />
         <h1 className="login-btn">
           <Link to="/login">LOGIN </Link>
         </h1>
-        <button type="submit" className="review-submit-btn">
-          SUBMIT
-        </button>
       </form>
     </>
   );

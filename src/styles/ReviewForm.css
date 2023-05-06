@@ -50,7 +50,7 @@
     margin-left: 0;
     margin-right: 0;
     position: relative;
-    left: 87%;
+    /* left: 87%; */
     width: fit-content;
     height: 36px;
     text-align: center;
