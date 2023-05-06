@@ -33,7 +33,6 @@ export default function Navbar() {
       </div> */}
       <div className="nav-buttons">
         <div className="nav-home-btn">
-          {" "}
           <Link to="/">HOME </Link>
         </div>
         <div>
@@ -47,11 +46,9 @@ export default function Navbar() {
         {isLoggedIn ? (
           <div className="nav-buttons-logged-in">
             <div className="nav-profile-btn">
-              {/* {" "} */}
               <Link to="/user-dashboard">PROFILE</Link>
             </div>
             <div className="nav-logout-btn">
-              {/* {" "} */}
               <Link to="/" onClick={logoutUser}>
                 LOGOUT
               </Link>
