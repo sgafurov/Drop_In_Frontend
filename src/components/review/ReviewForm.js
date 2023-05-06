@@ -13,9 +13,7 @@ export default function ReviewForm(props) {
 
   const [currentReview, setCurrentReview] = useState({
     review_id: unique_id,
-    building_id: placeID,
     address: address,
-    username: "",
     comment_body: "",
     star_rating: 0,
     timestamp: Math.floor(Date.now() / 1000),
