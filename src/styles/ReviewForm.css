@@ -9,9 +9,9 @@
 
 .review-textbox {
     background-color: rgb(216, 216, 216);
-    width: 91%;
+    width: 90%;
     margin: 0 auto;
-    height: 100px;
+    height: 100%;
     border: none;
     border-radius: 12px;
     font-size: 22px;

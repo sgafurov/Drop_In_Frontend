@@ -4,9 +4,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Rating from "./Rating";
+import { useSelector } from "react-redux";
 import "../../styles/ReviewForm.css";
 
+import { useDispatch } from "react-redux";
+import { setReview } from "../../store/reviewSlice";
+
 export default function ReviewForm(props) {
+  let dispatch = useDispatch();
+
+  const userSlice = useSelector((state) => state.userSlice);
+
   const unique_id = uuid();
   const placeID = localStorage.getItem("placeID");
   const address = localStorage.getItem("address");
@@ -81,6 +89,16 @@ export default function ReviewForm(props) {
         throw resObject;
       }
       alert("Review added");
+
+      dispatch(
+        setReview({
+          review_id: currentReview.review_id,
+          address: currentReview.address,
+          comment_body: currentReview.comment_body,
+          star_rating: currentReview.star_rating,
+          timestamp: currentReview.timestamp,
+        })
+      );
     } catch (err) {
       console.log("error : line 85 of review form", err);
       if (err.status == 400) {
@@ -89,7 +107,7 @@ export default function ReviewForm(props) {
     }
   };
 
-  return (
+  return userSlice.isLoggedIn ? (
     <>
       <form onSubmit={handleSubmit} className="review-form">
         <input
@@ -102,18 +120,35 @@ export default function ReviewForm(props) {
         <h1 className="login-btn">
           <Link to="/login">LOGIN </Link>
         </h1>
-        {/* <input
-                    className='author-textbox'
-                    name='username'
-                    placeholder='Add your name'
-                    value={currentReview.username}
-                    onChange={handleChange}
-                /> */}
-        {/* <Rating
+        <input
+          className="author-textbox"
+          name="username"
+          placeholder="Add your name"
+          value={currentReview.username}
+          onChange={handleChange}
+        />
+        <Rating
           currentReview={currentReview}
           setCurrentReview={setCurrentReview}
         />
-        <h1>{currentReview.star_rating}</h1> */}
+        <h1>{currentReview.star_rating}</h1>
+        <button type="submit" className="review-submit-btn">
+          SUBMIT
+        </button>
+      </form>
+    </>
+  ) : (
+    <>
+      <form onSubmit={handleSubmit} className="review-form">
+        <input
+          readOnly
+          className="review-textbox"
+          name="comment_body"
+          placeholder="Sign in to leave a review"
+        />
+        <h1 className="login-btn">
+          <Link to="/login">LOGIN </Link>
+        </h1>
         <button type="submit" className="review-submit-btn">
           SUBMIT
         </button>
