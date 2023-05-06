@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-.review-textbox {
+.review-textbox, .logged-out-review-textbox {
     background-color: rgb(216, 216, 216);
     width: 90%;
     margin: 0 auto;
@@ -24,7 +24,7 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.review-textbox:hover {
+.logged-out-review-textbox:hover {
     transform: scale(1.1);
 }
 

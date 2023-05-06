@@ -10,9 +10,17 @@ import { BASE_URL } from "../../constants";
 
 import { useDispatch } from "react-redux";
 import { setReview } from "../../store/reviewSlice";
+import { setIsLoggedIn } from "../../store/userSlice";
 
 export default function ReviewForm(props) {
   let dispatch = useDispatch();
+  if (localStorage.getItem("isLoggedIn") == true) {
+    dispatch(setIsLoggedIn(true));
+  }
+  let isLoggedIn = false
+  if (localStorage.getItem("isLoggedIn") == "true") {
+    isLoggedIn = true
+  }
 
   const userSlice = useSelector((state) => state.userSlice);
 
@@ -107,26 +115,23 @@ export default function ReviewForm(props) {
     }
   };
 
-  return userSlice.isLoggedIn ? (
+  return isLoggedIn ? (
     <>
       <form onSubmit={handleSubmit} className="review-form">
         <input
           className="review-textbox"
           name="comment_body"
-          placeholder="Sign in to leave a review"
+          placeholder="Leave a review"
           value={currentReview.comment_body}
           onChange={handleChange}
         />
-        <h1 className="login-btn">
-          <Link to="/login">LOGIN </Link>
-        </h1>
-        <input
+        {/* <input
           className="author-textbox"
           name="username"
           placeholder="Add your name"
           value={currentReview.username}
           onChange={handleChange}
-        />
+        /> */}
         <Rating
           currentReview={currentReview}
           setCurrentReview={setCurrentReview}
@@ -142,7 +147,7 @@ export default function ReviewForm(props) {
       <form onSubmit={handleSubmit} className="review-form">
         <input
           readOnly
-          className="review-textbox"
+          className="logged-out-review-textbox"
           name="comment_body"
           placeholder="Sign in to leave a review"
         />
