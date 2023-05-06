@@ -1,9 +1,10 @@
-//PARENT ELEMENT. RENDERS ARRAY OF REVIEWS FROM THE BACKEND
+//PARENT ELEMENT. RENDERS ARRAY OF REVIEWS FROM THE BACKEND AND DISPLAYS THE REVIEW FORM
 
 import React, { useState, useEffect } from "react";
 import ReviewForm from "./ReviewForm";
 import "../../styles/Reviews.css";
 import { BASE_URL } from "../../constants";
+import Stars from "./Stars";
 
 export default function Reviews() {
   const [address, setAddress] = useState(localStorage.getItem("address"));
@@ -12,7 +13,7 @@ export default function Reviews() {
 
   useEffect(() => {
     getReviewsFromBackend();
-  }, [address]);
+  }, []);
 
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
@@ -102,6 +103,7 @@ export default function Reviews() {
                 <>
                   {item.body ? (
                     <div className="review-card">
+                      <Stars rating={item.rating}/>
                       <div className="review-content">{item.body}</div>
                       <div className="review-author">{item.author}</div>
                     </div>
@@ -117,6 +119,7 @@ export default function Reviews() {
                 <>
                   {item.body ? (
                     <div className="review-card">
+                      <Stars rating={item.rating}/>
                       <div className="review-content">{item.body}</div>
                       <div className="review-author">{item.author}</div>
                     </div>

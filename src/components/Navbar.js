@@ -11,10 +11,11 @@ export default function Navbar() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") === "true") {
-      console.log("itemFromLocalStorage is true");
-      setIsLoggedIn(true);
-    }
+    // if (localStorage.getItem("isLoggedIn") === "true") {
+    //   console.log("itemFromLocalStorage is true");
+    //   setIsLoggedIn(true);
+    // }
+    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
   }, [isLoggedIn]);
 
   const logoutUser = () => {

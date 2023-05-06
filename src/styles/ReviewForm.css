@@ -1,10 +1,13 @@
 .review-form {
+    margin-bottom: 7%;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    /* justify-content: space-evenly; */
+    text-align: center;
 }
 
 .review-textbox, .logged-out-review-textbox {
@@ -39,11 +42,6 @@
     padding: 10px;
     position: relative;
     margin-bottom: 5px;
-}
-
-.review-form {
-    margin-bottom: 7%;
-    text-align: center;
 }
 
 .review-submit-btn {
@@ -85,4 +83,8 @@
 
 .login-btn:hover {
     background-color: navy;
+}
+
+.review-form input, .review-form button {
+    margin: 10px 0;
 }

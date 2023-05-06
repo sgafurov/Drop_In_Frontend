@@ -122,13 +122,6 @@ export default function ReviewForm() {
           value={currentReview.review_body}
           onChange={handleChange}
         />
-        {/* <input
-          className="author-textbox"
-          name="username"
-          placeholder="Add your name"
-          value={currentReview.username}
-          onChange={handleChange}
-        /> */}
         <button type="submit" className="review-submit-btn">
           SUBMIT
         </button>
