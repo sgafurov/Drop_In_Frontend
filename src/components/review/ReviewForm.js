@@ -109,6 +109,7 @@ export default function ReviewForm() {
     }));
 
     localStorage.setItem("rating", 0)
+    window.location.reload();
   };
 
   return isLoggedIn ? (
