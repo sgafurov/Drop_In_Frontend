@@ -2,16 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Login.css";
 import { BASE_URL } from "../../constants";
-
 import { useDispatch } from "react-redux";
 import { setUserInfo, setIsLoggedIn } from "../../store/userSlice";
+import Loading from "../Loading";
+import "../../styles/Login.css";
 
 export default function Login() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
@@ -33,7 +34,6 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setRedirect(true);
-
     try {
       const res = await fetch(`${BASE_URL}/user/login`, {
         method: "POST",
@@ -43,7 +43,9 @@ export default function Login() {
         },
         body: JSON.stringify(loginData), //login data is currently a JS object. so you have to send it as JSON object
       });
+      setIsLoading(true);
       const resObject = await res.json();
+      setIsLoading(false);
       console.log("line 47 of login", resObject);
       if (resObject.status == 400) {
         throw resObject;
@@ -71,56 +73,64 @@ export default function Login() {
     }
   };
 
-  return (
-    <div>
-      <div className="login-box">
-        <form onSubmit={handleSubmit} className="login-form">
-          <h1 className="login-title">DROP-IN</h1>
+  if (isLoading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div className="login-box">
+          <form onSubmit={handleSubmit} className="login-form">
+            <h1 className="login-title">DROP-IN</h1>
 
-          <h1 className="login-msg">Login to your account</h1>
+            <h1 className="login-msg">Login to your account</h1>
 
-          <label>
+            <label>
+              <input
+                className="login-input"
+                placeholder="Username"
+                type="text"
+                name="username"
+                value={loginData.username}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="login-input"
+                placeholder="Password"
+                type="password"
+                name="password"
+                value={loginData.password}
+                onChange={handleChange}
+              />
+            </label>
             <input
-              className="login-input"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={loginData.username}
-              onChange={handleChange}
+              type="submit"
+              value="Login"
+              className="login-btns login-submit-btn"
             />
-          </label>
-          <label>
-            <input
-              className="login-input"
-              placeholder="Password"
-              type="password"
-              name="password"
-              value={loginData.password}
-              onChange={handleChange}
-            />
-          </label>
-          <input
-            type="submit"
-            value="Login"
-            className="login-btns login-submit-btn"
-          />
 
-          {/* <p className="login-OR"> or</p>
+            {/* <p className="login-OR"> or</p>
 					<button className="login-btns login-google-btn">
 						<img src={google_logo} className="google-logo" />
 						<p className="google-text">Continue with Google</p>
 					</button> */}
 
-          <p className="sign-up-msg">
-            Dont have an account? <Link to="/signup"> Sign Up </Link>
-          </p>
-          <hr className="login-footer-line" />
-          <p className="login-footer-msg">
-            By continuing in you agree to Drop-In's Terms of Service, Privacy
-            Policy
-          </p>
-        </form>
+            <p className="sign-up-msg">
+              Dont have an account? <Link to="/signup"> Sign Up </Link>
+            </p>
+            <hr className="login-footer-line" />
+            <p className="login-footer-msg">
+              By continuing in you agree to Drop-In's Terms of Service, Privacy
+              Policy
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

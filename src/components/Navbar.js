@@ -6,9 +6,8 @@ import Logo from "../images/logo2.png";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   let navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // if (localStorage.getItem("isLoggedIn") === "true") {
@@ -29,9 +28,6 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      {/* <div>
-        <img className="nav-img" src={BackgroundImage} alt="NYC Apartments" />
-      </div> */}
       <div className="nav-buttons">
         <div className="nav-home-btn">
           <Link to="/">HOME </Link>
