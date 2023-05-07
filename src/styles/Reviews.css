@@ -1,6 +1,6 @@
 
 .reviews-title {
-    margin-top: 8%;
+    margin-top: 20px;
     /* margin-left: 10%; */
     font-size: 22px;
 }
@@ -18,14 +18,14 @@
 }
 
 .review-card {
+    margin: 0 auto;
+    margin-bottom: 5%;
     background-color: rgb(248, 125, 103);
-    width: 40%;
+    width: 42%;
     /* height: 100px; */
     height: auto;
-    margin: 0 auto;
     padding: 20px;
     border-radius: 20px;
-    margin-bottom: 5%;
 }
 
 .review-content {

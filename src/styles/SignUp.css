@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+.signup-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -30%);
+	background-color: rgb(241, 240, 240);
+	border-radius: 70px;
+	width: 525px;
+}
+
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.signup-title {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 50px;
+	font-weight: 500;
+	color: #F87D68;
+	text-shadow: 0px 4px 4px rgba(8, 8, 8, 0.25)
+}
+
+.logo {
+	margin-top: 10;
+	height: 80px;
+	width: 100px;
+	/* background-color: blue; */
+	margin-left: 40%;
+}
+
+.signup-msg {
+	font-size: 25px;
+	text-align: center;
+	/* margin-inline: auto; */
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.signup-input {
+	background-color: rgb(217, 217, 223);
+	width: 270px;
+	height: 60px;
+	border-radius: 20px;
+	border-style: none;
+	margin-top: 20px;
+	padding-left: 15px;
+	font-size: 17px;
+}
+
+.signup-input-radio-tenant {
+	margin-right: 10px;
+	background-color: rgb(217, 217, 223);
+	border-radius: 20px;
+	padding: 10px;
+	border-style: none;
+	font-size: 20px;
+	font-size: 16px;
+}
+
+
+.signup-input-radio-landlord {
+	margin-left: 10px;
+	background-color: rgb(217, 217, 223);
+	border-radius: 20px;
+	padding: 10px;
+	border-style: none;
+	font-size: 16px;
+}
+
+.signup-btns {
+	color: rgb(255, 255, 255);
+	width: 240px;
+	height: 45px;
+	font-size: 20px;
+	border-radius: 20px;
+	cursor: pointer;
+	border-style: none;
+
+}
+
+.signup-submit-btn {
+	background-color: rgb(0, 0, 0);
+	margin-top: 30px;
+}
+
+.signup-fb-btn {
+	background-color: rgb(20, 96, 247);
+	margin-top: -15px;
+	width: 240px;
+	display: inline-flex;
+	text-align: left;
+	font-size: 16px;
+}
+
+.fb-logo {
+	height: 30px;
+	width: 50px;
+	margin-left: -10px;
+	margin-top: 5px;
+}
+
+.fb-text {
+	margin-top: 12px;
+}
+
+.signup-google-btn {
+	background-color: rgb(255, 255, 255);
+	color: black;
+	margin-top: 10px;
+	width: 240px;
+	display: inline-flex;
+	text-align: left;
+	font-size: 16px;
+	border-style: solid;
+}
+
+.google-logo {
+	height: 20px;
+	width: 20px;
+	margin-top: 10px;
+	margin-left: 12px;
+}
+
+.google-text {
+	margin-top: 11px;
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+.signup-OR {
+	font-size: 30px;
+	margin-top: 10px;
+}
+
+.signup-msg {
+	text-align: center;
+	width: 300px;
+	font-size: 20px;
+	margin: 0 auto;
+	margin-top: 20px;
+	color: rgb(0, 0, 0);
+}
+
+.signup-footer-line {
+	width: 50%;
+	margin: 20px auto;
+}
+
+.signup-footer-msg {
+	margin-top: 0;
+	margin-bottom: 0;
+	text-align: center;
+	width: 300px;
+	font-size: 15px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+p a:any-link {
+	color: rgb(0, 0, 210);
+	text-decoration: none;
+}

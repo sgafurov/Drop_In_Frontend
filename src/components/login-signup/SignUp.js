@@ -2,13 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Navbar";
-import "../../styles/Login.css";
-import { BASE_URL } from "../../constants"
+import { BASE_URL } from "../../constants";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../../store/userSlice";
+import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar.js";
+import Loading from "../Loading";
+import "../../styles/SignUp.css";
 
-export default function SignUp(props) {
+export default function SignUp() {
+  const userSlice = useSelector((state) => state.userSlice);
+  let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [userData, setUserData] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
     username: "",
     password: "",
     email: "",
@@ -16,21 +23,20 @@ export default function SignUp(props) {
     lastname: "",
     address: "",
     user_type: "",
-    // favorites: ""
   });
-  const [redirect, setRedirect] = useState(false);
 
   const google_logo =
     "https://p1.hiclipart.com/preview/209/923/667/google-logo-background-g-suite-google-pay-google-doodle-text-circle-line-area-png-clipart.jpg";
 
-  console.log(userData);
-
-  // function updateUserData(loginData) {
-  // 	props.updateUserData(loginData) //sending it up to App.js
-  // }
+  console.log(formData);
 
   const handleChange = (event) => {
-    setUserData((prevData) => {
+    let updatedFormData = {
+      ...formData,
+      address: userSlice.address,
+    };
+    setFormData(updatedFormData);
+    setFormData((prevData) => {
       return {
         ...prevData,
         [event.target.name]: event.target.value,
@@ -41,145 +47,163 @@ export default function SignUp(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${BASE_URL}/users/register`, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        });
-        if (res.status == 400) {
-          throw res.message;
-        }
-        const resObject = await res.json();
-        console.log("res.json() = ", resObject);
-        alert("Account created");
-        navigate("/login");
+      const res = await fetch(`${BASE_URL}/user/register`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      setIsLoading(true);
+      const resObject = await res.json();
+      setIsLoading(false);
+      if (res.status == 400) {
+        throw resObject;
+      }
+      console.log("res.json() = ", resObject);
+      alert("Account created");
+      dispatch(
+        setUserInfo({
+          username: formData.username,
+          password: formData.password,
+          email: formData.email,
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          address: userSlice.address, //getting updated with a redux state
+          user_type: formData.user_type,
+        })
+      );
+      navigate("/login");
     } catch (err) {
-      console.log("SignUp register error = ", err);
+      console.log("SignUp error = ", err);
       if (err.status == 400) {
         alert(err.message);
       }
     }
-    setRedirect(true);
-    // updateUserData(loginData)
   };
 
-  return (
-    <div>
-      {/* <Navbar /> */}
-      <div className="login-box">
-        {/* <img src={logo} className="logo"/> */}
+  if (isLoading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div className="signup-box">
+          <form onSubmit={handleSubmit} className="signup-form">
+            <h1 className="signup-title">DROP-IN</h1>
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <h1 className="login-title">DROP-IN</h1>
+            <h1 className="signup-msg">Create an account</h1>
 
-          <h1 className="login-msg">Create an account</h1>
-          <label>
-            <input
-              className="login-input"
-              placeholder="Email"
-              type="text"
-              name="email"
-              value={userData.email}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <input
-              className="login-input"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={userData.username}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <input
-              className="login-input"
-              placeholder="Password"
-              type="text"
-              name="password"
-              value={userData.password}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <input
-              className="login-input"
-              placeholder="First Name"
-              type="text"
-              name="firstname"
-              value={userData.firstname}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <input
-              className="login-input"
-              placeholder="Last Name"
-              type="text"
-              name="lastname"
-              value={userData.lastname}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <input
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Email"
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Username"
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Create a Password"
+                type="text"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="First Name"
+                type="text"
+                name="firstname"
+                value={formData.firstname}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Last Name"
+                type="text"
+                name="lastname"
+                value={formData.lastname}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              {/* <input
               className="login-input"
               placeholder="Address"
               type="text"
               name="address"
-              value={userData.address}
+              value={formData.address}
               onChange={handleChange}
+            /> */}
+              <SearchBar />
+            </label>
+
+            <h3>I am a</h3>
+            <div className="signup-input-radios">
+              <label className="signup-input-radio-tenant">
+                Tenant
+                <input
+                  type="radio"
+                  name="user_type"
+                  value="tenant"
+                  onChange={handleChange}
+                />
+              </label>
+              <label className="signup-input-radio-landlord">
+                Landlord
+                <input
+                  type="radio"
+                  name="user_type"
+                  value="landlord"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <input
+              type="submit"
+              value="Sign Up"
+              className="login-btns login-submit-btn"
             />
-          </label>
 
-          <h3>I am a</h3>
-          <div className="login-input-radios">
-            <label className="login-input-radio-tenant">
-              Tenant
-              <input
-                type="radio"
-                name="user_type"
-                value="tenant"
-                onChange={handleChange}
-              />
-            </label>
-            <label className="login-input-radio-landlord">
-              Landlord
-              <input
-                type="radio"
-                name="user_type"
-                value="landlord"
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <input
-            type="submit"
-            value="Sign Up"
-            className="login-btns login-submit-btn"
-          />
-
-          {/* <p className="login-OR"> or</p>
+            {/* <p className="login-OR"> or</p>
 					<button className="login-btns login-google-btn">
 						<img src={google_logo} className="google-logo" />
 						<p className="google-text">Continue with Google</p>
 					</button> */}
 
-          <p className="sign-up-msg">
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-          <hr className="login-footer-line" />
-          <p className="login-footer-msg">
-            By continuing in you agree to Drop-In's Terms of Service and Privacy
-            Policy
-          </p>
-        </form>
+            <p className="signup-msg">
+              Already have an account? <Link to="/login">Login</Link>
+            </p>
+            <hr className="signup-footer-line" />
+            <p className="signup-footer-msg">
+              By continuing in you agree to Drop-In's Terms of Service and
+              Privacy Policy
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

@@ -1,0 +1,58 @@
+.map-components {
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr; */
+    /* divide the container into two columns */
+    /* grid-template-rows: auto 1fr; */
+    /* divide the container into two rows */
+    /* grid-gap: 20px; */
+    /* add some space between the columns and rows */
+    /* position: relative; */
+    /* make the container a positioning context for the autocomplete div */
+    align-items: center;
+    text-align: center;
+}
+
+.map-and-streetview {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    position: relative;
+}
+
+.autocomplete {
+    position: relative;
+    /* position the autocomplete div relative to the container */
+    top: 10;
+    /* left: 0; */
+    z-index: 1;
+    /* make sure the autocomplete div is on top of the other divs */
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.map,
+.streetview {
+    width: 100%;
+    /* make both the map and streetview divs take up the full width of their parent container */
+    height: 400px;
+    /* set the height of the divs */
+}
+
+@media only screen and (max-width: 768px) {
+    .map-components {
+        grid-template-columns: 1fr;
+        /* on smaller screens, only use one column */
+        grid-template-rows: auto auto 1fr;
+        /* add an extra row for the autocomplete div */
+    }
+
+    .autocomplete {
+        position: static;
+        /* reset the position of the autocomplete div */
+        z-index: 2;
+        /* make sure the autocomplete div is still on top of the other divs */
+        margin-bottom: 20px;
+        /* add some space between the autocomplete div and the other divs */
+    }
+}

@@ -1,119 +1,127 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Autocomplete,
+  useLoadScript,
+  useJsApiLoader,
+  GoogleMap,
+} from "@react-google-maps/api";
 import PlacesAutocomplete, {
-  geocodeByPlaceId,
+  geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import scriptLoader from "react-async-script-loader";
+import Loading from "./Loading";
 
-function AutoSearch(props, isScriptLoaded, isScriptLoadSucceed) {
-  console.log("AutoSearch Props: ", props);
+import { useDispatch } from "react-redux";
+import { setAddress, setCoords } from "../store/addressSlice";
 
+const placesLibrary = ["places"];
+const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
+export default function AutoSearch() {
+  let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const [address, setAddress] = useState("");
+  const [map, setMap] = useState(null);
 
-  const [userInput, setUserInput] = useState("");
+  const [searchResult, setSearchResult] = useState("");
 
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
+  const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
+
+  const [center, setCenter] = useState({
+    lat: JSON.parse(localStorage.getItem("lat")),
+    lng: JSON.parse(localStorage.getItem("lng")),
+  });
+
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: apiKey,
+    libraries: placesLibrary,
   });
 
   useEffect(() => {
-    props.updateAddress(address);
-    props.updateCoordinates(coordinates);
-  }, [address]);
+    setCenter({
+      lat: JSON.parse(localStorage.getItem("lat")),
+      lng: JSON.parse(localStorage.getItem("lng")),
+    });
+    console.log("AutoSearch useEffect activated");
+  }, []);
 
-  const handleChange = (value) => {
-    setUserInput(value);
-  };
-
-  const handleSelect = async (value, valuePlaceID) => {
-    console.log("valuePlaceID ", valuePlaceID);
-    console.log("in handleSelect ", address);
-    console.log("in handleSelect ", coordinates);
-
-    const results = await geocodeByPlaceId(valuePlaceID);
-    console.log(results);
-
-    const latLng = await getLatLng(results[0]);
-    console.log("latLng", latLng);
-    console.log("lat", results[0].geometry.location.lat());
-
-    setCoordinates((prevCoords) => ({
-      ...prevCoords,
-      lat: latLng.lat,
-      lng: latLng.lng,
-    }));
-
-    setUserInput(value);
-    setAddress(...address, (address) => value);
-
-    props.updateAddress(address);
-    props.updateCoordinates(coordinates);
-
-    const placeID = valuePlaceID;
-    localStorage.setItem("address", value);
-    localStorage.setItem("lat", JSON.stringify(latLng.lat).substr(0, 12));
-    localStorage.setItem("lng", JSON.stringify(latLng.lng).substr(0, 12));
-    localStorage.setItem("placeID", placeID);
-    navigate("/apartment-view");
-  };
-
-  if (props.isScriptLoaded && props.isScriptLoadSucceed) {
-    return (
-      <div>
-        <PlacesAutocomplete
-          value={userInput}
-          valuePlaceID
-          onChange={handleChange}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: "Enter Address ...",
-                  className: "location-search-input",
-                })}
-              />
-
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-
-                {suggestions.map((suggestion) => {
-                  const style = suggestion.active
-                    ? { backgroundColor: "#4287f5", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-
-                  return (
-                    <div
-                      key={suggestion.description}
-                      {...getSuggestionItemProps(suggestion, { style })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-      </div>
-    );
-  } else {
-    return <div>NOT loaded</div>;
+  function onLoad(autocomplete) {
+    setSearchResult(autocomplete);
   }
-}
 
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-export default scriptLoader([
-  `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`,
-])(AutoSearch);
+  async function onPlaceChanged() {
+    if (searchResult != null) {
+      const place = searchResult.getPlace();
+      const { name, formatted_address } = place; //destructuring
+
+      geocodeByAddress(formatted_address)
+        .then((results) => getLatLng(results[0]))
+        .then((latLng) => {
+          console.log("Success from geocodeByAddress", latLng);
+          localStorage.setItem("lat", latLng.lat);
+          localStorage.setItem("lng", latLng.lng);
+
+          dispatch(setCoords({ lat: latLng.lat, lng: latLng.lng })); //what we pass into setCoords is the "payload"
+
+          console.log("Lat from localStorage ", localStorage.getItem("lat"));
+          console.log("Lng from localStorage ", localStorage.getItem("lng"));
+          setCenter({
+            lat: JSON.parse(latLng.lat),
+            lng: JSON.parse(latLng.lng),
+          });
+        })
+        .catch((error) => console.error("Error", error));
+
+      localStorage.setItem("address", formatted_address);
+
+      dispatch(setAddress(formatted_address));
+
+      // setSearchResult(formatted_address);
+
+      console.log(`Name: ${name}`);
+      console.log(`Formatted Address: ${formatted_address}`);
+    } else {
+      alert("Please enter an address");
+    }
+    setIsLoading(true); // show the loading screen
+    // setTimeout(() => {
+    //   navigate("/apartment-view");
+    // }, 3000);
+    navigate("/apartment-view");
+  }
+
+  // if (isLoading) {
+  //   return (
+  //     <div>
+  //       <Loading />
+  //     </div>
+  //   );
+  // } else {
+  return isLoaded ? (
+    <div className="autocomplete">
+      <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+        <input
+          type="text"
+          placeholder="123 Main St..."
+          style={{
+            boxSizing: `border-box`,
+            border: `1px solid transparent`,
+            width: `240px`,
+            height: `32px`,
+            padding: `0 12px`,
+            borderRadius: `3px`,
+            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+            fontSize: `14px`,
+            outline: `none`,
+            textOverflow: `ellipses`,
+          }}
+        />
+      </Autocomplete>
+    </div>
+  ) : (
+    <div>Loading...</div>
+  );
+  // }
+}

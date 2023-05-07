@@ -1,20 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 .login-box {
-	margin: 20px auto;
-	width: 525px;
-	height: 750px;
-	border: none;
-	border-radius: 70px;
-	/* position: relative; */
+	margin: 0 auto;
 	position: absolute;
+	top: 50%;
 	left: 50%;
-	/* top used to be -200 */
-	top: -300px;
-	/* margin-right: -50%;  */
-	transform: translate(-50%, 50%);
-	/* background-color: rgb(2, 88, 114); */
+	transform: translate(-50%, -50%);
 	background-color: rgb(241, 240, 240);
+	border-radius: 70px;
+	width: 525px;
+	height: 525px;
 }
 
 .login-title {

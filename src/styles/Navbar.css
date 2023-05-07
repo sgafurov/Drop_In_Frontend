@@ -7,11 +7,11 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     align-items: center;
     text-align: center;
     z-index: 999;
-    background-color: black;
+    /* background-color: rgb(63, 91, 214); */
+    background-color: #023047;
 }
 
 .nav-img {
@@ -28,14 +28,14 @@
 .nav-logo {
     position: relative;
     width: 70px;
-    height: 5%;
+    height: 70px;
     margin: 0 auto;
     transition: all .2s ease-in-out;
+    z-index: 1;
 }
 
 .nav-logo:hover {
     transform: scale(1.2);
-    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .nav-buttons {
