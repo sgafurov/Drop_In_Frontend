@@ -5,9 +5,12 @@ import ReviewForm from "./ReviewForm";
 import "../../styles/Reviews.css";
 import { BASE_URL } from "../../constants";
 import Stars from "./Stars";
+import Loading from "../Loading";
 
 export default function Reviews() {
   const [address, setAddress] = useState(localStorage.getItem("address"));
+
+  const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
 
   let localUsername = localStorage.getItem("username");
 
@@ -48,7 +51,9 @@ export default function Reviews() {
           address: address,
         }),
       });
+      setIsLoading(true);
       const resObject = await res.json();
+      setIsLoading(false);
       console.log("line 50 of rendering reviews", resObject);
       if (resObject.status == 400) {
         throw resObject;
@@ -73,65 +78,58 @@ export default function Reviews() {
     }
   };
 
-  return (
-    <>
+  if (isLoading) {
+    return (
       <div>
-        <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
+        <Loading />
       </div>
-
-      {/* SHOW REVIEWS OF ADDRESS */}
-      <h1 className="reviews-title">What residents have to say ...</h1>
-
-      <div className="reviews">
-        {/* Hard Coded Filler Data */}
-        {/* <div className="review-card">
-          <div className="review-content">
-            There are issues with the hot water.
-          </div>
-          <div className="review-author">James A.</div>
+    );
+  } else {
+    return (
+      <>
+        <div>
+          <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
         </div>
-        <div className="review-card">
-          <div className="review-content">
-            Management takes a while to respond.
-          </div>
-          <div className="review-author">Crystal T.</div>
-        </div> */}
 
-        {newestReviewBtn
-          ? sortReviewByNewest.map((item) => {
-              return (
-                <>
-                  {item.body ? (
-                    <div className="review-card">
-                      <Stars rating={item.rating}/>
-                      <div className="review-content">{item.body}</div>
-                      <div className="review-author">{item.author}</div>
-                    </div>
-                  ) : (
-                    <p></p>
-                  )}
-                </>
-              );
-            })
-          : //If user sorts by new, then render the reviews by newest AKA sort by shortest timestamp. Else, show the reviews normally as they are added.
-            userReviews.map((item) => {
-              return (
-                <>
-                  {item.body ? (
-                    <div className="review-card">
-                      <Stars rating={item.rating}/>
-                      <div className="review-content">{item.body}</div>
-                      <div className="review-author">{item.author}</div>
-                    </div>
-                  ) : (
-                    <p></p>
-                  )}
-                </>
-              );
-            })}
+        <h1 className="reviews-title">What residents have to say ...</h1>
 
-        <ReviewForm />
-      </div>
-    </>
-  );
+        <div className="reviews">
+          {newestReviewBtn
+            ? sortReviewByNewest.map((item) => {
+                return (
+                  <>
+                    {item.body ? (
+                      <div className="review-card">
+                        <Stars rating={item.rating} />
+                        <div className="review-content">{item.body}</div>
+                        <div className="review-author">{item.author}</div>
+                      </div>
+                    ) : (
+                      <p></p>
+                    )}
+                  </>
+                );
+              })
+            : //If user sorts by new, then render the reviews by newest AKA sort by shortest timestamp. Else, show the reviews normally as they are added.
+              userReviews.map((item) => {
+                return (
+                  <>
+                    {item.body ? (
+                      <div className="review-card">
+                        <Stars rating={item.rating} />
+                        <div className="review-content">{item.body}</div>
+                        <div className="review-author">{item.author}</div>
+                      </div>
+                    ) : (
+                      <p></p>
+                    )}
+                  </>
+                );
+              })}
+
+          <ReviewForm />
+        </div>
+      </>
+    );
+  }
 }

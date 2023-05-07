@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-.login-box {
+.signup-box {
 	margin: 20px auto;
 	width: 525px;
 	height: 750px;
@@ -15,10 +15,17 @@
 	transform: translate(-50%, 50%);
 	/* background-color: rgb(2, 88, 114); */
 	background-color: rgb(241, 240, 240);
-	margin-top: 50px;
+    margin-top: 50px;
 }
 
-.login-title {
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* margin: 0 auto; */
+}
+
+.signup-title {
 	/* margin: 0 auto; */
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -37,7 +44,7 @@
 	margin-left: 40%;
 }
 
-.login-msg {
+.signup-msg {
 	font-size: 25px;
 	text-align: center;
 	/* margin-inline: auto; */
@@ -45,14 +52,7 @@
 	margin-bottom: 10px;
 }
 
-.login-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 0 auto;
-}
-
-.login-input {
+.signup-input {
 	background-color: rgb(217, 217, 223);
 	width: 270px;
 	height: 60px;
@@ -63,7 +63,7 @@
 	font-size: 17px;
 }
 
-.login-input-radio-tenant {
+.signup-input-radio-tenant {
 	margin-right: 10px;
 	background-color: rgb(217, 217, 223);
 	border-radius: 20px;
@@ -74,7 +74,7 @@
 }
 
 
-.login-input-radio-landlord {
+.signup-input-radio-landlord {
 	margin-left: 10px;
 	background-color: rgb(217, 217, 223);
 	border-radius: 20px;
@@ -83,7 +83,7 @@
 	font-size: 16px;
 }
 
-.login-btns {
+.signup-btns {
 	color: rgb(255, 255, 255);
 	width: 240px;
 	height: 45px;
@@ -94,12 +94,12 @@
 
 }
 
-.login-submit-btn {
+.signup-submit-btn {
 	background-color: rgb(0, 0, 0);
-	margin-top: 40px;
+	margin-top: 30px;
 }
 
-.login-fb-btn {
+.signup-fb-btn {
 	background-color: rgb(20, 96, 247);
 	margin-top: -15px;
 	width: 240px;
@@ -119,7 +119,7 @@
 	margin-top: 12px;
 }
 
-.login-google-btn {
+.signup-google-btn {
 	background-color: rgb(255, 255, 255);
 	color: black;
 	margin-top: 10px;
@@ -143,12 +143,12 @@
 	font-size: 18px;
 }
 
-.login-OR {
+.signup-OR {
 	font-size: 30px;
 	margin-top: 10px;
 }
 
-.sign-up-msg {
+.signup-msg {
 	text-align: center;
 	width: 300px;
 	font-size: 20px;
@@ -157,12 +157,12 @@
 	color: rgb(0, 0, 0);
 }
 
-.login-footer-line {
+.signup-footer-line {
 	width: 50%;
 	margin: 20px auto;
 }
 
-.login-footer-msg {
+.signup-footer-msg {
 	margin-top: 0;
 	margin-bottom: 0;
 	text-align: center;

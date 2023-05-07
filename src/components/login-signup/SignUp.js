@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Login.css";
+import "../../styles/SignUp.css";
 import { BASE_URL } from "../../constants";
 import SearchBar from "./SearchBar.js";
 
@@ -85,17 +85,17 @@ export default function SignUp() {
 
   return (
     <div>
-      <div className="login-box">
+      <div className="signup-box">
         {/* <img src={logo} className="logo"/> */}
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <h1 className="login-title">DROP-IN</h1>
+        <form onSubmit={handleSubmit} className="signup-form">
+          <h1 className="signup-title">DROP-IN</h1>
 
-          <h1 className="login-msg">Create an account</h1>
+          <h1 className="signup-msg">Create an account</h1>
 
           <label>
             <input
-              className="login-input"
+              className="signup-input"
               placeholder="Email"
               type="text"
               name="email"
@@ -105,7 +105,7 @@ export default function SignUp() {
           </label>
           <label>
             <input
-              className="login-input"
+              className="signup-input"
               placeholder="Username"
               type="text"
               name="username"
@@ -115,7 +115,7 @@ export default function SignUp() {
           </label>
           <label>
             <input
-              className="login-input"
+              className="signup-input"
               placeholder="Create a Password"
               type="text"
               name="password"
@@ -125,7 +125,7 @@ export default function SignUp() {
           </label>
           <label>
             <input
-              className="login-input"
+              className="signup-input"
               placeholder="First Name"
               type="text"
               name="firstname"
@@ -135,7 +135,7 @@ export default function SignUp() {
           </label>
           <label>
             <input
-              className="login-input"
+              className="signup-input"
               placeholder="Last Name"
               type="text"
               name="lastname"
@@ -156,8 +156,8 @@ export default function SignUp() {
           </label>
 
           <h3>I am a</h3>
-          <div className="login-input-radios">
-            <label className="login-input-radio-tenant">
+          <div className="signup-input-radios">
+            <label className="signup-input-radio-tenant">
               Tenant
               <input
                 type="radio"
@@ -166,7 +166,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </label>
-            <label className="login-input-radio-landlord">
+            <label className="signup-input-radio-landlord">
               Landlord
               <input
                 type="radio"
@@ -188,11 +188,11 @@ export default function SignUp() {
 						<p className="google-text">Continue with Google</p>
 					</button> */}
 
-          <p className="sign-up-msg">
+          <p className="signup-msg">
             Already have an account? <Link to="/login">Login</Link>
           </p>
-          <hr className="login-footer-line" />
-          <p className="login-footer-msg">
+          <hr className="signup-footer-line" />
+          <p className="signup-footer-msg">
             By continuing in you agree to Drop-In's Terms of Service and Privacy
             Policy
           </p>
