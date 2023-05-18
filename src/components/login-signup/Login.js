@@ -65,6 +65,7 @@ export default function Login() {
       );
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("username", resObject.username);
+      localStorage.setItem("_id", resObject._id);
     } catch (err) {
       console.log("line 57 of register error", err);
       if (err.status == 400) {

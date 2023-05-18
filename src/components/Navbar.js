@@ -18,7 +18,7 @@ export default function Navbar() {
   }, [isLoggedIn]);
 
   const logoutUser = () => {
-    localStorage.removeItem("isLoggedIn");
+    localStorage.clear()    
     window.location.href = "/";
   };
 

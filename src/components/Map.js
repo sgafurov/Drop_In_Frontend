@@ -25,6 +25,10 @@ export default function Map() {
     lng: addressSlice.lng,
   };
 
+  if (addressSlice.lat) {
+    console.log("shaka!")
+  }
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
