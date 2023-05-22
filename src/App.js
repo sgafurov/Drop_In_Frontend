@@ -15,7 +15,7 @@ import { setUserInfo, setIsLoggedIn } from "../src/store/userSlice";
 export default function App() {
   const dispatch = useDispatch();
 
-   useEffect(async () => {
+  useEffect(async () => {
     // when user refreshes the page, this will add data to our redux states again
     const addressFromStorage = localStorage.getItem("address");
     const coordsFromStorage = {
@@ -33,40 +33,40 @@ export default function App() {
     }
 
     //NEWWW
-    const userFromStorage = localStorage.getItem("username")
-    console.log("userFromStorage", userFromStorage)
-    try {
-      const res = await fetch(`${BASE_URL}/user/userInfo`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userFromStorage), //login data is currently a JS object. so you have to send it as JSON object
-      });
-      const resObject = await res.json();
-      console.log("line 48 of app.js getting userInfo", resObject);
-      if (resObject.status == 400) {
-        throw resObject;
-      }
-      dispatch(setIsLoggedIn(true));
-      dispatch(
-        setUserInfo({
-          username: resObject.username,
-          password: resObject.password,
-          email: resObject.email,
-          firstname: resObject.firstname,
-          lastname: resObject.lastname,
-          address: resObject.address,
-          user_type: resObject.user_type,
-        })
-      );
-    } catch (err) {
-      console.log("line 65 of app.js getting userInfo error", err);
-      if (err.status == 400) {
-        alert(err.message);
-      }
-    }
+    // const userFromStorage = localStorage.getItem("username")
+    // console.log("userFromStorage", userFromStorage)
+    // try {
+    //   const res = await fetch(`${BASE_URL}/user/userInfo`, {
+    //     method: "POST",
+    //     mode: "cors",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: userFromStorage, // json.strinify or no????
+    //   });
+    //   const resObject = await res.json();
+    //   console.log("line 48 of app.js getting userInfo", resObject);
+    //   if (resObject.status == 400) {
+    //     throw resObject;
+    //   }
+    //   dispatch(setIsLoggedIn(true));
+    //   dispatch(
+    //     setUserInfo({
+    //       username: resObject.username,
+    //       password: resObject.password,
+    //       email: resObject.email,
+    //       firstname: resObject.firstname,
+    //       lastname: resObject.lastname,
+    //       address: resObject.address,
+    //       user_type: resObject.user_type,
+    //     })
+    //   );
+    // } catch (err) {
+    //   console.log("line 65 of app.js getting userInfo error", err);
+    //   if (err.status == 400) {
+    //     alert(err.message);
+    //   }
+    // }
   }, []);
 
   return (

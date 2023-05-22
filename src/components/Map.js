@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCoords } from "../store/addressSlice";
 
 const placesLibrary = ["places"];
 const containerStyle = {
@@ -11,6 +12,8 @@ const containerStyle = {
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export default function Map() {
+  let dispatch = useDispatch();
+
   const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
 
   const [map, setMap] = useState(null);
@@ -26,7 +29,7 @@ export default function Map() {
   };
 
   if (addressSlice.lat) {
-    console.log("shaka!")
+    console.log("shaka!");
   }
 
   const { isLoaded } = useJsApiLoader({
@@ -36,6 +39,8 @@ export default function Map() {
   });
 
   useEffect(() => {
+    if (localStorage.getItem("lat")) {
+    }
     setCenter({
       lat: JSON.parse(localStorage.getItem("lat")),
       lng: JSON.parse(localStorage.getItem("lng")),

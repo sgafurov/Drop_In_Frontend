@@ -28,10 +28,10 @@ export default function AutoSearch() {
 
   const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
 
-  const [center, setCenter] = useState({
-    lat: JSON.parse(localStorage.getItem("lat")),
-    lng: JSON.parse(localStorage.getItem("lng")),
-  });
+  // const [center, setCenter] = useState({
+  //   lat: JSON.parse(localStorage.getItem("lat")),
+  //   lng: JSON.parse(localStorage.getItem("lng")),
+  // });
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -39,13 +39,13 @@ export default function AutoSearch() {
     libraries: placesLibrary,
   });
 
-  useEffect(() => {
-    setCenter({
-      lat: JSON.parse(localStorage.getItem("lat")),
-      lng: JSON.parse(localStorage.getItem("lng")),
-    });
-    console.log("AutoSearch useEffect activated");
-  }, []);
+  // useEffect(() => {
+  //   setCenter({
+  //     lat: JSON.parse(localStorage.getItem("lat")),
+  //     lng: JSON.parse(localStorage.getItem("lng")),
+  //   });
+  //   console.log("AutoSearch useEffect activated");
+  // }, []);
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
@@ -67,10 +67,10 @@ export default function AutoSearch() {
 
           console.log("Lat from localStorage ", localStorage.getItem("lat"));
           console.log("Lng from localStorage ", localStorage.getItem("lng"));
-          setCenter({
-            lat: JSON.parse(latLng.lat),
-            lng: JSON.parse(latLng.lng),
-          });
+          // setCenter({
+          //   lat: JSON.parse(latLng.lat),
+          //   lng: JSON.parse(latLng.lng),
+          // });
         })
         .catch((error) => console.error("Error", error));
 
