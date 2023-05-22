@@ -46,7 +46,7 @@ export default function Streetview() {
   }, []);
 
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds(centerRedux);
     map.fitBounds(bounds);
     setMap(map);
   }, []);

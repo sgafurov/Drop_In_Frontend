@@ -4,18 +4,11 @@ import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../images/landing-background2.png";
 import Logo from "../images/logo2.png";
 import "../styles/Navbar.css";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   let navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // if (localStorage.getItem("isLoggedIn") === "true") {
-    //   console.log("itemFromLocalStorage is true");
-    //   setIsLoggedIn(true);
-    // }
-    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-  }, [isLoggedIn]);
+  const {isLoggedIn} = useSelector((state) => state.userSlice); // state refers to store.js
 
   const logoutUser = () => {
     localStorage.clear()    

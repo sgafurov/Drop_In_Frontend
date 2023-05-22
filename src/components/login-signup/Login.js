@@ -13,7 +13,6 @@ export default function Login() {
   let navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -33,7 +32,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setRedirect(true);
+    setIsLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/user/login`, {
         method: "POST",
@@ -43,14 +42,12 @@ export default function Login() {
         },
         body: JSON.stringify(loginData), //login data is currently a JS object. so you have to send it as JSON object
       });
-      setIsLoading(true);
       const resObject = await res.json();
       setIsLoading(false);
       console.log("line 47 of login", resObject);
       if (resObject.status == 400) {
         throw resObject;
       }
-      navigate("/user-dashboard");
       dispatch(setIsLoggedIn(true));
       dispatch(
         setUserInfo({
@@ -63,11 +60,17 @@ export default function Login() {
           user_type: resObject.user_type,
         })
       );
-      localStorage.setItem("isLoggedIn", true);
-      localStorage.setItem("username", resObject.username);
-      localStorage.setItem("_id", resObject._id);
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({
+          isLoggedIn: true,
+          username: resObject.username,
+          _id: resObject._id,
+        })
+      );
+      navigate("/user-dashboard");
     } catch (err) {
-      console.log("line 57 of register error", err);
+      console.log("line 68 of register error", err);
       if (err.status == 400) {
         alert(err.message);
       }

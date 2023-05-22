@@ -12,17 +12,17 @@ export default function ApartmentView() {
   let dispatch = useDispatch();
   const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
 
-  useEffect(() => {
-    if (localStorage.getItem("lat")) {
-      dispatch(
-        setCoords({
-          lat: localStorage.getItem("lat"),
-          lng: localStorage.getItem("lng"),
-        })
-      );
-      dispatch(setAddress(localStorage.getItem("address")));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("lat")) {
+  //     dispatch(
+  //       setCoords({
+  //         lat: localStorage.getItem("lat"),
+  //         lng: localStorage.getItem("lng"),
+  //       })
+  //     );
+  //     dispatch(setAddress(localStorage.getItem("address")));
+  //   }
+  // }, []);
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function ApartmentView() {
         ) : (
           <Loading />
         )}
-        
+
         <Reviews />
       </div>
     </>

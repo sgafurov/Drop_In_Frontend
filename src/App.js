@@ -15,21 +15,19 @@ import { setUserInfo, setIsLoggedIn } from "../src/store/userSlice";
 export default function App() {
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    // when user refreshes the page, this will add data to our redux states again
-    const addressFromStorage = localStorage.getItem("address");
-    const coordsFromStorage = {
-      lat: localStorage.getItem("lat"),
-      lng: localStorage.getItem("lng"),
-    };
-    if (addressFromStorage) {
-      dispatch(setAddress(addressFromStorage));
+  useEffect(() => {
+    if (localStorage.getItem("lat")) {
       dispatch(
         setCoords({
-          lat: JSON.parse(coordsFromStorage.lat),
-          lng: JSON.parse(coordsFromStorage.lng),
+          lat: JSON.parse(localStorage.getItem("lat")),
+          lng: JSON.parse(localStorage.getItem("lng")),
         })
       );
+      dispatch(setAddress(localStorage.getItem("address")));
+    }
+
+    if (localStorage.getItem("userInfo")) {
+      dispatch(setUserInfo(JSON.parse(localStorage.getItem("userInfo"))))
     }
 
     //NEWWW
