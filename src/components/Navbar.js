@@ -4,15 +4,18 @@ import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../images/landing-background2.png";
 import Logo from "../images/logo2.png";
 import "../styles/Navbar.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {logoutUser} from "../store/userSlice"
 
 export default function Navbar() {
+  let dispatch = useDispatch()
   let navigate = useNavigate();
-  const {isLoggedIn} = useSelector((state) => state.userSlice); // state refers to store.js
+  const { isLoggedIn } = useSelector((state) => state.userSlice); // state refers to store.js
 
-  const logoutUser = () => {
-    localStorage.clear()    
-    window.location.href = "/";
+  const logout = () => {
+    localStorage.clear();
+    dispatch(logoutUser())
+    navigate("/");
   };
 
   const gotToHome = () => {
@@ -39,9 +42,9 @@ export default function Navbar() {
               <Link to="/user-dashboard">PROFILE</Link>
             </div>
             <div className="nav-logout-btn">
-              <Link to="/" onClick={logoutUser}>
+              <span onClick={logout}>
                 LOGOUT
-              </Link>
+              </span>
             </div>
           </div>
         ) : (

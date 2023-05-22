@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { BASE_URL } from "../../constants";
 import { useDispatch } from "react-redux";
 import { setUserInfo, setIsLoggedIn } from "../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
+  let navigate = useNavigate()
   let dispatch = useDispatch()
 
   const userSlice = useSelector((state) => state.userSlice);
@@ -15,6 +17,12 @@ export default function UserDashboard() {
   console.log("user slice, ", userSlice);
 
   const [clickedMyReviews, setClickedMyReviews] = useState(false);
+
+  useEffect(()=>{
+    if (!userSlice.isLoggedIn) {
+      navigate("/")
+    }
+  })
 
   // let username = location.state.username
   // let usernameArray = username.split('')

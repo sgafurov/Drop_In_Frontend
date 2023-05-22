@@ -13,22 +13,17 @@ import { setReview } from "../../store/reviewSlice";
 import { setIsLoggedIn } from "../../store/userSlice";
 
 export default function ReviewForm() {
+  const {isLoggedIn, username} = useSelector((state) => state.userSlice); 
+  const {address} = useSelector((state) => state.addressSlice); 
   let dispatch = useDispatch();
-  if (localStorage.getItem("isLoggedIn") == true) {
-    dispatch(setIsLoggedIn(true));
-  }
-  let isLoggedIn = false;
-  if (localStorage.getItem("isLoggedIn") == "true") {
-    isLoggedIn = true;
-  }
 
   const unique_id = uuid();
-  const localUsername = localStorage.getItem("username");
-  const localAddress = localStorage.getItem("address");
+  // const localUsername = localStorage.getItem("username");
+  // const localAddress = localStorage.getItem("address");
 
   const [currentReview, setCurrentReview] = useState({
-    username: localUsername,
-    address: localAddress,
+    username: username,
+    address: address,
     review_id: unique_id,
     review_body: "",
     rating: 0,
@@ -85,8 +80,8 @@ export default function ReviewForm() {
 
       dispatch(
         setReview({
-          username: localUsername,
-          address: localAddress,
+          username: username,
+          address: address,
           review_id: currentReview.review_id,
           review_body: currentReview.review_body,
           star_rating: currentReview.rating,
