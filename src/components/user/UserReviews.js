@@ -6,6 +6,7 @@ export default function UserReviews() {
   const [username, setUsername] = useState("");
   const [_id, set_id] = useState("");
   const [newestReviewBtn, setNewestReviewBtn] = useState(false);
+  
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
     {
@@ -13,6 +14,7 @@ export default function UserReviews() {
       author: "",
       timestamp: "",
       address: "",
+      _id: "",
     },
   ]);
 
@@ -47,7 +49,9 @@ export default function UserReviews() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: _id,
+        body: JSON.stringify({
+          _id: _id,
+        }),
       });
 
       const resObject = await res.json();
