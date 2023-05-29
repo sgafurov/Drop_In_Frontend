@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../store/userSlice";
+import { setUserInfo, setIsLoggedIn } from "../../store/userSlice";
 import { useSelector } from "react-redux";
 import SearchBar from "./SearchBar.js";
 import Loading from "../Loading";
@@ -46,6 +46,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/user/register`, {
         method: "POST",
@@ -55,7 +56,6 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-      setIsLoading(true);
       const resObject = await res.json();
       setIsLoading(false);
       if (res.status == 400) {
@@ -74,6 +74,7 @@ export default function SignUp() {
           user_type: formData.user_type,
         })
       );
+      dispatch(setIsLoggedIn(false))
       navigate("/login");
     } catch (err) {
       console.log("SignUp error = ", err);

@@ -3,8 +3,8 @@ import { BASE_URL } from "../../constants";
 import "../../styles/UserReviews.css";
 
 export default function UserReviews() {
-  const [username, setUsername] = useState(localStorage.getItem("username"));
-
+  const [username, setUsername] = useState("");
+  const [newestReviewBtn, setNewestReviewBtn] = useState(false);
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
     {
@@ -15,10 +15,17 @@ export default function UserReviews() {
     },
   ]);
 
-  const [newestReviewBtn, setNewestReviewBtn] = useState(false);
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem("userInfo");
+    if (userFromStorage) {
+      setUsername(JSON.parse(userFromStorage).username);
+    }
+  }, []);
 
   useEffect(() => {
-    getReviewsFromBackend();
+    if (username) {
+      getReviewsFromBackend();
+    }
   }, [username]);
 
   const sortReviewByNewest = []
@@ -60,6 +67,7 @@ export default function UserReviews() {
             author: resObject[i].username,
             timestamp: resObject[i].timestamp,
             address: resObject[i].address,
+            _id: resObject[i]._id,
           },
         ]);
       }
@@ -84,7 +92,7 @@ export default function UserReviews() {
               return (
                 <>
                   {item.body ? (
-                    <div className="user-review-card">
+                    <div className="user-review-card" key={item._id}>
                       <div className="user-review-content">
                         ({item.address})
                       </div>
@@ -92,7 +100,7 @@ export default function UserReviews() {
                       <div className="user-review-author">{item.author}</div>
                     </div>
                   ) : (
-                    <p></p>
+                    <p key={item._id}></p>
                   )}
                 </>
               );
@@ -102,7 +110,7 @@ export default function UserReviews() {
               return (
                 <>
                   {item.body ? (
-                    <div className="user-review-card">
+                    <div className="user-review-card" key={item._id}>
                       <div className="user-review-content">
                         ({item.address})
                       </div>
@@ -110,7 +118,7 @@ export default function UserReviews() {
                       <div className="user-review-author">{item.author}</div>
                     </div>
                   ) : (
-                    <p></p>
+                    <p key={item._id}></p>
                   )}
                 </>
               );

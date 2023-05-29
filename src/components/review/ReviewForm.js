@@ -66,6 +66,7 @@ export default function ReviewForm() {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify(currentReview),
       });
@@ -74,6 +75,10 @@ export default function ReviewForm() {
       console.log("line 88 of review form", resObject);
 
       if (resObject.status == 400) {
+        throw resObject;
+      }
+
+      if (resObject.status == 403) {
         throw resObject;
       }
       alert("Review added");
@@ -89,7 +94,7 @@ export default function ReviewForm() {
       );
     } catch (err) {
       console.log("error : line 105 of review form", err);
-      if (err.status == 400) {
+      if (err.status == 400 || err.status == 403) {
         alert(err.message);
       }
     }

@@ -40,19 +40,20 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginData), //login data is currently a JS object. so you have to send it as JSON object
+        body: JSON.stringify(loginData), // login data is currently a JS object. so you have to send it as JSON object
       });
+      console.log("line 45 of Login.js", res);
+      if (res.status == 400 || res.status == 500) {
+        setIsLoading(false);
+        throw res;
+      }
       const resObject = await res.json();
       setIsLoading(false);
-      console.log("line 47 of login", resObject);
-      if (resObject.status == 400) {
-        throw resObject;
-      }
       dispatch(setIsLoggedIn(true));
       dispatch(
         setUserInfo({
+          _id: resObject._id,
           username: resObject.username,
-          password: resObject.password,
           email: resObject.email,
           firstname: resObject.firstname,
           lastname: resObject.lastname,
@@ -68,11 +69,15 @@ export default function Login() {
           _id: resObject._id,
         })
       );
+      localStorage.setItem("token", resObject.token);
       navigate("/user-dashboard");
     } catch (err) {
-      console.log("line 68 of register error", err);
+      console.log("line 68 of Login.js error", err);
       if (err.status == 400) {
-        alert(err.message);
+        const error = await err.json()
+        alert(error.message);
+      } else {
+        alert("Something went wrong")
       }
     }
   };

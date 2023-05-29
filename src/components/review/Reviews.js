@@ -40,6 +40,7 @@ export default function Reviews() {
   };
 
   const getReviewsFromBackend = async () => {
+    setIsLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/review/getReviews`, {
         method: "POST",
@@ -51,7 +52,6 @@ export default function Reviews() {
           address: address,
         }),
       });
-      setIsLoading(true);
       const resObject = await res.json();
       setIsLoading(false);
       console.log("line 50 of rendering reviews", resObject);

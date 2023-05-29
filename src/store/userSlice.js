@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   _id: "",
   username: "",
-  password: "",
   email: "",
   firstname: "",
   lastname: "",
@@ -19,7 +18,6 @@ export const userSlice = createSlice({
     setUserInfo: (state, action) => {
       state._id = action.payload._id;
       state.username = action.payload.username;
-      state.password = action.payload.password;
       state.email = action.payload.email;
       state.firstname = action.payload.firstname;
       state.lastname = action.payload.lastname;

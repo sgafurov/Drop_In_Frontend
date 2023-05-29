@@ -72,7 +72,7 @@ export default function UserDashboard() {
     <div className="user-dashboard">
       <h1>Hi, {userSlice.username}</h1>
       <div className="content-div">
-        <button onClick={() => setClickedMyReviews(true)}>My Reviews</button>
+        <button onClick={() => setClickedMyReviews(!clickedMyReviews)}>{clickedMyReviews ? "Hide reviews" : "Show my reviews"}</button>
       </div>
 
       {clickedMyReviews ? <UserReviews /> : <></>}

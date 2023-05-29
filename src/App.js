@@ -27,44 +27,48 @@ export default function App() {
     }
 
     if (localStorage.getItem("userInfo")) {
-      dispatch(setUserInfo(JSON.parse(localStorage.getItem("userInfo"))))
+      dispatch(setUserInfo(JSON.parse(localStorage.getItem("userInfo"))));
     }
 
-    //NEWWW
-    // const userFromStorage = localStorage.getItem("username")
-    // console.log("userFromStorage", userFromStorage)
-    // try {
-    //   const res = await fetch(`${BASE_URL}/user/userInfo`, {
-    //     method: "POST",
-    //     mode: "cors",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: userFromStorage, // json.strinify or no????
-    //   });
-    //   const resObject = await res.json();
-    //   console.log("line 48 of app.js getting userInfo", resObject);
-    //   if (resObject.status == 400) {
-    //     throw resObject;
-    //   }
-    //   dispatch(setIsLoggedIn(true));
-    //   dispatch(
-    //     setUserInfo({
-    //       username: resObject.username,
-    //       password: resObject.password,
-    //       email: resObject.email,
-    //       firstname: resObject.firstname,
-    //       lastname: resObject.lastname,
-    //       address: resObject.address,
-    //       user_type: resObject.user_type,
-    //     })
-    //   );
-    // } catch (err) {
-    //   console.log("line 65 of app.js getting userInfo error", err);
-    //   if (err.status == 400) {
-    //     alert(err.message);
-    //   }
-    // }
+    async function getUserInfo() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      try {
+        const res = await fetch(`${BASE_URL}/user/userInfo`, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+        });
+        const resObject = await res.json();
+        console.log("line 48 of app.js getting userInfo", resObject);
+        if (resObject.status == 400) {
+          throw resObject;
+        }
+        dispatch(setIsLoggedIn(true));
+        dispatch(
+          setUserInfo({
+            _id: resObject._id,
+            username: resObject.username,
+            email: resObject.email,
+            firstname: resObject.firstname,
+            lastname: resObject.lastname,
+            address: resObject.address,
+            user_type: resObject.user_type,
+          })
+        );
+      } catch (err) {
+        console.log("line 65 of app.js getting userInfo error", err);
+        if (err.status == 400) {
+          alert(err.message);
+        }
+      }
+    }
+    getUserInfo();
   }, []);
 
   return (
