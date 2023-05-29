@@ -4,6 +4,7 @@ import "../../styles/UserReviews.css";
 
 export default function UserReviews() {
   const [username, setUsername] = useState("");
+  const [_id, set_id] = useState("");
   const [newestReviewBtn, setNewestReviewBtn] = useState(false);
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
@@ -19,6 +20,7 @@ export default function UserReviews() {
     const userFromStorage = localStorage.getItem("userInfo");
     if (userFromStorage) {
       setUsername(JSON.parse(userFromStorage).username);
+      set_id(JSON.parse(userFromStorage)._id);
     }
   }, []);
 
@@ -45,9 +47,7 @@ export default function UserReviews() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username: username,
-        }),
+        body: _id,
       });
 
       const resObject = await res.json();

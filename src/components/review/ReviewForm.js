@@ -13,15 +13,14 @@ import { setReview } from "../../store/reviewSlice";
 import { setIsLoggedIn } from "../../store/userSlice";
 
 export default function ReviewForm() {
-  const {isLoggedIn, username} = useSelector((state) => state.userSlice); 
-  const {address} = useSelector((state) => state.addressSlice); 
+  const { isLoggedIn, username, _id } = useSelector((state) => state.userSlice);
+  const { address } = useSelector((state) => state.addressSlice);
   let dispatch = useDispatch();
 
   const unique_id = uuid();
-  // const localUsername = localStorage.getItem("username");
-  // const localAddress = localStorage.getItem("address");
 
   const [currentReview, setCurrentReview] = useState({
+    _id: _id,
     username: username,
     address: address,
     review_id: unique_id,
@@ -49,12 +48,6 @@ export default function ReviewForm() {
     console.log("current review", currentReview);
     event.preventDefault();
 
-    // setCurrentReview(prev => ({
-    //     ...prev,
-    //     // review_id: unique_id,
-    //     timestamp: (Math.floor(Date.now() / 1000))
-    // }))
-
     if (currentReview.star_rating == 0) {
       alert("Provide a star rating");
       return;
@@ -66,13 +59,13 @@ export default function ReviewForm() {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(currentReview),
       });
 
       const resObject = await res.json();
-      console.log("line 88 of review form", resObject);
+      console.log("line 68 of review form", resObject);
 
       if (resObject.status == 400) {
         throw resObject;
@@ -93,7 +86,7 @@ export default function ReviewForm() {
         })
       );
     } catch (err) {
-      console.log("error : line 105 of review form", err);
+      console.log("error line 89 of review form", err);
       if (err.status == 400 || err.status == 403) {
         alert(err.message);
       }
@@ -108,7 +101,7 @@ export default function ReviewForm() {
       rating: 0,
     }));
 
-    localStorage.setItem("rating", 0)
+    localStorage.setItem("rating", 0);
     window.location.reload();
   };
 
