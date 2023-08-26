@@ -67,7 +67,7 @@ export default function Landing() {
       setBackgroundImage((prevIndex) =>
         prevIndex < backgrounds.length - 1 ? prevIndex + 1 : 0
       );
-    }, 7000);
+    }, 5000);
     return () => clearInterval(intervalId);
   }, [backgrounds.length]);
 
@@ -80,7 +80,6 @@ export default function Landing() {
     >
       <div className="landing-search">
         <h1 className="landing-title">DROP-IN</h1>
-
         <AutoSearch />
       </div>
     </div>
