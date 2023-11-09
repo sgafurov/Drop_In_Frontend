@@ -24,13 +24,6 @@ export default function UserDashboard() {
     <>
       <div className="user-dashboard">
         <h1>Hi, {userSlice.username}</h1>
-        <div className="content-div">
-          <button onClick={() => setClickedMyReviews(!clickedMyReviews)}>
-            {clickedMyReviews ? "Hide reviews" : "Show my reviews"}
-          </button>
-        </div>
-
-        {clickedMyReviews ? <UserReviews /> : <></>}
 
         <div>
           <h3>My account details</h3>
@@ -42,7 +35,10 @@ export default function UserDashboard() {
       </div>
 
       <div className="user-reviews">
-        <UserReviews />
+        <h3>My Reviews</h3>
+        <div>
+          <UserReviews />
+        </div>
       </div>
     </>
   );

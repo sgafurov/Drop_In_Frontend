@@ -6,6 +6,7 @@ import "../../styles/Reviews.css";
 import { BASE_URL } from "../../constants";
 import Stars from "./Stars";
 import Loading from "../Loading";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Reviews() {
   const [address, setAddress] = useState(localStorage.getItem("address"));

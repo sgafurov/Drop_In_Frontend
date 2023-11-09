@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Autocomplete,
@@ -21,6 +21,8 @@ const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 export default function AutoSearch() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
+
+  const inputRef = useRef(null);
 
   const [map, setMap] = useState(null);
 
@@ -68,6 +70,8 @@ export default function AutoSearch() {
     }
     setIsLoading(true); // show the loading screen
 
+    inputRef.current.value = "";
+
     navigate("/apartment-view");
   }
 
@@ -75,6 +79,7 @@ export default function AutoSearch() {
     <div className="autocomplete">
       <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
         <input
+          ref={inputRef}
           className="input-box"
           type="text"
           placeholder="Search for an address"
@@ -83,9 +88,9 @@ export default function AutoSearch() {
             borderRadius: "20px",
             padding: "10px",
             width: "500px",
-            height:  "30px",
+            height: "30px",
             outline: "none",
-            fontSize: "15px"
+            fontSize: "15px",
           }}
         />
       </Autocomplete>
