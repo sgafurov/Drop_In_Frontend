@@ -7,7 +7,7 @@ Try it for yourself. Visit http://drop-in-reviews.netlify.app
 
 
 ## Add reviews
-https://user-images.githubusercontent.com/78608476/236698861-e302bdfe-8e2e-4c53-ae82-c8c54f00784e.mov
+![add-review](https://github.com/sgafurov/Drop_In_Frontend/assets/78608476/74288947-049e-4c35-9d33-7882dcbf2685)
 
 
 
