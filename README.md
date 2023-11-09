@@ -3,7 +3,7 @@
 Try it for yourself. Visit http://drop-in-reviews.netlify.app
 
 ## Search for an address
-https://user-images.githubusercontent.com/78608476/236698744-9e6be6eb-db4c-4d3e-bde7-2ce25740f38b.mov
+![search-address](https://github.com/sgafurov/Drop_In_Frontend/assets/78608476/27045b63-0ab0-4036-85a1-8ab9d062d4fd)
 
 
 ## Add reviews
