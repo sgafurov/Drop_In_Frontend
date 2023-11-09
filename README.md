@@ -2,10 +2,6 @@
 
 Try it for yourself. Visit http://drop-in-reviews.netlify.app
 
-## Landing page
-https://user-images.githubusercontent.com/78608476/236689042-dbd4fa4a-205d-4eb5-a85f-b3f8a7dbb09d.mov
-
-
 ## Search for an address
 https://user-images.githubusercontent.com/78608476/236698744-9e6be6eb-db4c-4d3e-bde7-2ce25740f38b.mov
 
