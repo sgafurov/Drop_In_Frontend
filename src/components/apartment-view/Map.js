@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
-import { setCoords } from "../store/addressSlice";
+import { setCoords } from "../../store/addressSlice";
 
 const placesLibrary = ["places"];
 const containerStyle = {
-  width: "420px",
-  height: "400px",
+  width: "500px",
+  height: "450px",
 };
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;

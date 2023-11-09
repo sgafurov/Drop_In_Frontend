@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import ApartmentView from "./components/ApartmentView";
+import ApartmentView from "./components/apartment-view/ApartmentView.js";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./components/Landing";

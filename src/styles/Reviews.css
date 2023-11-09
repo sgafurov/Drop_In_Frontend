@@ -1,17 +1,13 @@
 
 .reviews-title {
     margin-top: 20px;
-    /* margin-left: 10%; */
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .reviews {
-    /* background-color: brown; */
-    /* width: 100%; */
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 3%;
     justify-content: center;
     align-items: center;
     width: auto;
@@ -35,6 +31,6 @@
 
 .review-author {
     float: right;
-    margin-top: 20%;
+    margin-top: 10%;
     font-size: 100%;
 }

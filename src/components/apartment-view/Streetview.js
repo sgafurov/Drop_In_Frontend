@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 
 const placesLibrary = ["places"];
 const containerStyle = {
-  width: "420px",
-  height: "400px",
+  width: "500px",
+  height: "450px",
 };
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;

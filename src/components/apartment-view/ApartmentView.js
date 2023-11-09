@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 import Map from "./Map";
 import Streetview from "./Streetview";
-import Reviews from "./review/Reviews";
-import "../styles/ApartmentView.css";
+import Reviews from "../review/Reviews";
 import { useDispatch, useSelector } from "react-redux";
-import { setAddress, setCoords } from "../store/addressSlice";
-import Loading from "./Loading";
+import { setAddress, setCoords } from "../../store/addressSlice";
+import Loading from "../Loading";
+import "../../styles/ApartmentView.css";
 
 export default function ApartmentView() {
   let dispatch = useDispatch();

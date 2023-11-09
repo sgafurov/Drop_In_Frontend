@@ -28,24 +28,11 @@ export default function AutoSearch() {
 
   const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
 
-  // const [center, setCenter] = useState({
-  //   lat: JSON.parse(localStorage.getItem("lat")),
-  //   lng: JSON.parse(localStorage.getItem("lng")),
-  // });
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
     libraries: placesLibrary,
   });
-
-  // useEffect(() => {
-  //   setCenter({
-  //     lat: JSON.parse(localStorage.getItem("lat")),
-  //     lng: JSON.parse(localStorage.getItem("lng")),
-  //   });
-  //   console.log("AutoSearch useEffect activated");
-  // }, []);
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
@@ -67,10 +54,6 @@ export default function AutoSearch() {
 
           console.log("Lat from localStorage ", localStorage.getItem("lat"));
           console.log("Lng from localStorage ", localStorage.getItem("lng"));
-          // setCenter({
-          //   lat: JSON.parse(latLng.lat),
-          //   lng: JSON.parse(latLng.lng),
-          // });
         })
         .catch((error) => console.error("Error", error));
 
@@ -78,44 +61,31 @@ export default function AutoSearch() {
 
       dispatch(setAddress(formatted_address));
 
-      // setSearchResult(formatted_address);
-
       console.log(`Name: ${name}`);
       console.log(`Formatted Address: ${formatted_address}`);
     } else {
       alert("Please enter an address");
     }
     setIsLoading(true); // show the loading screen
-    // setTimeout(() => {
-    //   navigate("/apartment-view");
-    // }, 3000);
+
     navigate("/apartment-view");
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <div>
-  //       <Loading />
-  //     </div>
-  //   );
-  // } else {
   return isLoaded ? (
     <div className="autocomplete">
       <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
         <input
+          className="input-box"
           type="text"
-          placeholder="123 Main St..."
+          placeholder="Search for an address"
           style={{
-            boxSizing: `border-box`,
-            border: `1px solid transparent`,
-            width: `240px`,
-            height: `32px`,
-            padding: `0 12px`,
-            borderRadius: `3px`,
-            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-            fontSize: `14px`,
-            outline: `none`,
-            textOverflow: `ellipses`,
+            border: "2px solid #ccc",
+            borderRadius: "20px",
+            padding: "10px",
+            width: "500px",
+            height:  "30px",
+            outline: "none",
+            fontSize: "15px"
           }}
         />
       </Autocomplete>

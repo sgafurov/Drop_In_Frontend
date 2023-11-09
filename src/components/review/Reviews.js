@@ -87,11 +87,11 @@ export default function Reviews() {
   } else {
     return (
       <>
+        <h1 className="reviews-title">What residents have to say ...</h1>
+
         <div>
           <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
         </div>
-
-        <h1 className="reviews-title">What residents have to say ...</h1>
 
         <div className="reviews">
           {newestReviewBtn
