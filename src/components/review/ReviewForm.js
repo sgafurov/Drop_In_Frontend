@@ -20,7 +20,7 @@ export default function ReviewForm() {
   const unique_id = uuid();
 
   const [currentReview, setCurrentReview] = useState({
-    _id: _id,
+    // _id: _id,
     username: username,
     address: address,
     review_id: unique_id,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../constants";
+import Stars from "../review/Stars";
 import "../../styles/UserReviews.css";
 
 export default function UserReviews() {
@@ -15,6 +16,7 @@ export default function UserReviews() {
       timestamp: "",
       address: "",
       _id: "",
+      rating: ""
     },
   ]);
 
@@ -50,7 +52,7 @@ export default function UserReviews() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          _id: _id,
+          username: username,
         }),
       });
 
@@ -71,7 +73,8 @@ export default function UserReviews() {
             author: resObject[i].username,
             timestamp: resObject[i].timestamp,
             address: resObject[i].address,
-            _id: resObject[i]._id,
+            rating: resObject[i].rating,
+            // _id: resObject[i]._id,
           },
         ]);
       }
@@ -101,7 +104,7 @@ export default function UserReviews() {
                         ({item.address})
                       </div>
                       <div className="user-review-content">{item.body}</div>
-                      <div className="user-review-author">{item.author}</div>
+                      <Stars rating={item.rating} />
                     </div>
                   ) : (
                     <p key={item._id}></p>
@@ -119,7 +122,7 @@ export default function UserReviews() {
                         ({item.address})
                       </div>
                       <div className="user-review-content">{item.body}</div>
-                      <div className="user-review-author">{item.author}</div>
+                      <Stars rating={item.rating} />
                     </div>
                   ) : (
                     <p key={item._id}></p>
