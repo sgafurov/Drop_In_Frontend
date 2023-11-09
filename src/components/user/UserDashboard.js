@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import UserReviews from "./UserReviews";
-import "../../styles/UserDashboard.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../../styles/UserDashboard.css";
 
 export default function UserDashboard() {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const userSlice = useSelector((state) => state.userSlice);
 
@@ -14,28 +14,36 @@ export default function UserDashboard() {
 
   const [clickedMyReviews, setClickedMyReviews] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!userSlice.isLoggedIn) {
-      navigate("/")
+      navigate("/");
     }
-  })
+  });
 
   return (
-    <div className="user-dashboard">
-      <h1>Hi, {userSlice.username}</h1>
-      <div className="content-div">
-        <button onClick={() => setClickedMyReviews(!clickedMyReviews)}>{clickedMyReviews ? "Hide reviews" : "Show my reviews"}</button>
+    <>
+      <div className="user-dashboard">
+        <h1>Hi, {userSlice.username}</h1>
+        <div className="content-div">
+          <button onClick={() => setClickedMyReviews(!clickedMyReviews)}>
+            {clickedMyReviews ? "Hide reviews" : "Show my reviews"}
+          </button>
+        </div>
+
+        {clickedMyReviews ? <UserReviews /> : <></>}
+
+        <div>
+          <h3>My account details</h3>
+          <p>Firstname {userSlice.firstname}</p>
+          <p>Lastname {userSlice.lastname}</p>
+          <p>Username {userSlice.username}</p>
+          <p>Address {userSlice.address}</p>
+        </div>
       </div>
 
-      {clickedMyReviews ? <UserReviews /> : <></>}
-
-      <div>
-        <h3>My account details</h3>
-        <p>Firstname {userSlice.firstname}</p>
-        <p>Lastname {userSlice.lastname}</p>
-        <p>Username {userSlice.username}</p>
-        <p>Address {userSlice.address}</p>
+      <div className="user-reviews">
+        <UserReviews />
       </div>
-    </div>
+    </>
   );
 }

@@ -6,9 +6,10 @@
     margin: 0 auto;
 }
 
-.row {
+.content-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 20px;
+    align-items: center;
 }

@@ -1,3 +1,19 @@
-.content-div {
-    margin-top: 100px;
+.user-dashboard {
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px black solid;
+    border-radius: .5rem;
+    padding: 0 20px;
+    align-items: center;
+    width: 500px;
+}
+
+.user-reviews {
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px black solid;
+    border-radius: .5rem;
+    padding: 0 20px;
+    align-items: center;
+    width: 500px;
 }
