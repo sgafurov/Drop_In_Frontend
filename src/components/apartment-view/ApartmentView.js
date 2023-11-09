@@ -45,7 +45,7 @@ export default function ApartmentView() {
           <Loading />
         )}
 
-        <Reviews />
+        <Reviews address={addressSlice.address}/>
       </div>
     </>
   );

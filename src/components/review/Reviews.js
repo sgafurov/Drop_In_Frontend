@@ -8,16 +8,18 @@ import Stars from "./Stars";
 import Loading from "../Loading";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Reviews() {
-  const [address, setAddress] = useState(localStorage.getItem("address"));
-
+export default function Reviews({ address }) {
+  // const [address, setAddress] = useState(localStorage.getItem("address"));
   const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
 
-  let localUsername = localStorage.getItem("username");
+  const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
 
   useEffect(() => {
-    getReviewsFromBackend();
-  }, []);
+    if (address) {
+      console.log("props.address", address);
+      getReviewsFromBackend();
+    }
+  }, [address]);
 
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
@@ -40,8 +42,9 @@ export default function Reviews() {
     setNewestReviewBtn(true);
   };
 
-  const getReviewsFromBackend = async () => {
+  const getReviewsFromBackend = async (addy) => {
     setIsLoading(true);
+
     try {
       const res = await fetch(`${BASE_URL}/review/getReviews`, {
         method: "POST",
@@ -55,22 +58,22 @@ export default function Reviews() {
       });
       const resObject = await res.json();
       setIsLoading(false);
-      console.log("line 50 of rendering reviews", resObject);
+      console.log("line 61 of rendering reviews", resObject);
       if (resObject.status == 400) {
         throw resObject;
       }
-      //set the reviews to be the response of array of addresses received from the backend
-      for (let i = 0; i < resObject.length; i++) {
-        setUserReviews((prev) => [
-          ...prev,
-          {
-            rating: resObject[i].rating,
-            body: resObject[i].review_body,
-            author: resObject[i].username,
-            timestamp: resObject[i].timestamp,
-          },
-        ]);
-      }
+
+       // Clear userReviews before adding the new reviews (so we dont append to reviews fetched from previous address)
+      setUserReviews([]);
+
+       // Add the new reviews received from the backend to the userReviews state
+       setUserReviews(resObject.map((review) => ({
+        rating: review.rating,
+        body: review.review_body,
+        author: review.username,
+        timestamp: review.timestamp,
+      })));
+      
     } catch (err) {
       console.log("error : line 68 of rendering reviews", err);
       if (err.status == 400) {

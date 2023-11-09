@@ -69,10 +69,8 @@ export default function AutoSearch() {
       alert("Please enter an address");
     }
     setIsLoading(true); // show the loading screen
-
     inputRef.current.value = "";
-
-    navigate("/apartment-view");
+    navigate(`/apartment-view`);
   }
 
   return isLoaded ? (
