@@ -63,17 +63,18 @@ export default function Reviews({ address }) {
         throw resObject;
       }
 
-       // Clear userReviews before adding the new reviews (so we dont append to reviews fetched from previous address)
+      // Clear userReviews before adding the new reviews (so we dont append to reviews fetched from previous address)
       setUserReviews([]);
 
-       // Add the new reviews received from the backend to the userReviews state
-       setUserReviews(resObject.map((review) => ({
-        rating: review.rating,
-        body: review.review_body,
-        author: review.username,
-        timestamp: review.timestamp,
-      })));
-      
+      // Add the new reviews received from the backend to the userReviews state
+      setUserReviews(
+        resObject.map((review) => ({
+          rating: review.rating,
+          body: review.review_body,
+          author: review.username,
+          timestamp: review.timestamp,
+        }))
+      );
     } catch (err) {
       console.log("error : line 68 of rendering reviews", err);
       if (err.status == 400) {
@@ -93,9 +94,13 @@ export default function Reviews({ address }) {
       <>
         <h1 className="reviews-title">What residents have to say ...</h1>
 
-        <div>
-          <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
-        </div>
+        {userReviews.length > 0 ? (
+          <div>
+            <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div className="reviews">
           {newestReviewBtn
