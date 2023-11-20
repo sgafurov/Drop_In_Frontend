@@ -1,5 +1,5 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Lexend+Peta:wght@300;400;600;700&display=swap'); */
-
+/* 
 .landing-page {
     width: 1024px;
     align-items: center;
@@ -12,4 +12,40 @@
     justify-content: space-between;
     margin-top: 20px;
     align-items: center;
+} */
+
+/* Default styles for larger screens */
+.landing-page {
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.content-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 768px) {
+    .landing-page {
+        width: 100%;
+        padding: 0 20px;
+        /* Add some padding to the sides for better readability */
+    }
+
+    .content-card {
+        flex-direction: column;
+        /* Stack the elements vertically on smaller screens */
+        text-align: center;
+        /* Center the text in each card */
+    }
+
+    /* You may want to adjust the width and height of your images for smaller screens */
+    img {
+        width: 50%;
+        height: auto;
+    }
 }
