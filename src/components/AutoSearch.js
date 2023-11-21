@@ -1,17 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Autocomplete,
-  useLoadScript,
-  useJsApiLoader,
-  GoogleMap,
-} from "@react-google-maps/api";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
-import Loading from "./Loading";
-
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { useDispatch } from "react-redux";
 import { setAddress, setCoords } from "../store/addressSlice";
 
@@ -24,11 +14,7 @@ export default function AutoSearch() {
 
   const inputRef = useRef(null);
 
-  const [map, setMap] = useState(null);
-
   const [searchResult, setSearchResult] = useState("");
-
-  const [isLoading, setIsLoading] = useState(false); // add a state variable to keep track of loading
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -68,7 +54,6 @@ export default function AutoSearch() {
     } else {
       alert("Please enter an address");
     }
-    setIsLoading(true); // show the loading screen
     inputRef.current.value = "";
     navigate(`/apartment-view`);
   }
@@ -96,5 +81,4 @@ export default function AutoSearch() {
   ) : (
     <div>Loading...</div>
   );
-  // }
 }
