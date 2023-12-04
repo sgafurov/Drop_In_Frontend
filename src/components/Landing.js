@@ -7,6 +7,7 @@ import "../styles/Landing.css";
 
 export default function Landing() {
   return (
+    <div className="landing-outer-container">
     <div className="landing-page">
       <div className="content-card">
         <div>
@@ -35,6 +36,7 @@ export default function Landing() {
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }

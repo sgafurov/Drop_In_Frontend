@@ -14,13 +14,19 @@
     align-items: center;
 } */
 
-/* Default styles for larger screens */
+.landing-outer-container {
+    margin: 0 auto;
+    width: 100%;
+}
+
 .landing-page {
-    width: 1024px;
+    /* width: 1054px; */
+    max-width: 1024px;
     margin: 0 auto;
 }
 
 .content-card {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -42,6 +48,11 @@
         text-align: center;
         /* Center the text in each card */
     }
+
+    .content-card:nth-child(2) {
+        flex-direction: column-reverse;
+    }
+
 
     /* You may want to adjust the width and height of your images for smaller screens */
     img {

@@ -4,6 +4,7 @@ import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { useDispatch } from "react-redux";
 import { setAddress, setCoords } from "../store/addressSlice";
+import "../styles/AutoSearch.css";
 
 const placesLibrary = ["places"];
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -63,18 +64,9 @@ export default function AutoSearch() {
       <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
         <input
           ref={inputRef}
-          className="input-box"
+          className="autocomplete-input"
           type="text"
           placeholder="Search for an address"
-          style={{
-            border: "2px solid #ccc",
-            borderRadius: "20px",
-            padding: "10px",
-            width: "500px",
-            height: "30px",
-            outline: "none",
-            fontSize: "15px",
-          }}
         />
       </Autocomplete>
     </div>

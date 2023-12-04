@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/userSlice";
 import AutoSearch from "./AutoSearch";
 // import logo from "../images/Drop In-logos_transparent copy.png"
-import logo from "../images/logo-only.png"
+import logo from "../images/logo-only.png";
 
 export default function Navbar() {
   let dispatch = useDispatch();
@@ -36,16 +36,14 @@ export default function Navbar() {
             onClick={gotToHome}
           />
         </div>
-        <AutoSearch />
+        <AutoSearch/>
         {isLoggedIn ? (
           <div className="nav-buttons-logged-in">
             <div className="nav-profile-btn">
               <Link to="/user-dashboard">PROFILE</Link>
             </div>
             <div className="nav-logout-btn">
-              <span onClick={logout}>
-                LOGOUT
-              </span>
+              <span onClick={logout}>LOGOUT</span>
             </div>
           </div>
         ) : (
