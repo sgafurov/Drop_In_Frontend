@@ -21,3 +21,18 @@
 .streetview-div {
     padding-right: 10px;
 }
+
+@media only screen and (max-width: 768px) {
+    .apt-view-div {
+        margin: 0;
+        width: 450px;
+    }
+    .apt-visuals {
+        margin: 0;
+        flex-direction: column;
+        width: 100%;
+    }
+    .streetview-div {
+        margin-bottom: 20px;
+    }
+}
