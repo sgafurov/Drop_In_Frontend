@@ -90,6 +90,7 @@ export default function Reviews({ address }) {
                 onClick={() => {
                   setSortByNewest(true);
                 }}
+                className="sort-btn"
               >
                 SORT BY NEWEST
               </button>

@@ -27,11 +27,17 @@
         margin: 0 auto;
         width: 450px;
     }
+
+    .apt-address {
+        margin-left: 20px;
+    }
+
     .apt-visuals {
         margin: 0;
         flex-direction: column;
         width: 100%;
     }
+
     .streetview-div {
         margin-bottom: 20px;
     }

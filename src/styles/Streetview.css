@@ -8,5 +8,6 @@
     .streetview {
         margin: 0 auto;
         width: 400px;
+        height: 350px;
     }
 }
