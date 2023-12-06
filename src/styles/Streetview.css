@@ -1,0 +1,13 @@
+.streetview {
+    width: 500px;
+    height: 450px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .streetview {
+        margin: 0 auto;
+        width: 400px;
+    }
+    
+}
