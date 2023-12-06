@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoords } from "../../store/addressSlice";
+import "../../styles/Map.css";
 
 const placesLibrary = ["places"];
-const containerStyle = {
-  width: "500px",
-  height: "450px",
-};
+// const containerStyle = {
+//   width: "500px",
+//   height: "450px",
+// };
 
 const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -57,11 +58,12 @@ export default function Map() {
   return isLoaded && addressSlice.lat ? (
     <div>
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        // mapContainerStyle={containerStyle}
         center={centerRedux}
         zoom={0}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        mapContainerClassName="map"
       >
         {/* Child components, such as markers, info windows, etc. */}
         <MarkerF position={centerRedux}></MarkerF>
