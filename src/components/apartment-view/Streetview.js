@@ -32,7 +32,7 @@ export default function Streetview() {
 
   console.log("center redux type: ", addressSlice.lat, typeof addressSlice.lat);
 
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
     libraries: placesLibrary,
@@ -55,6 +55,25 @@ export default function Streetview() {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
+
+  if (loadError) {
+    return (
+      <div>
+        <h1 style={{ color: "red" }}>Google Maps API Error</h1>
+        <p>{loadError.message || "API key is missing or expired"}</p>
+        <small>Please check your REACT_APP_GOOGLE_API_KEY in the .env file</small>
+      </div>
+    );
+  }
+
+  if (!apiKey) {
+    return (
+      <div>
+        <h1 style={{ color: "red" }}>Google Maps API Key Missing</h1>
+        <p>Please add REACT_APP_GOOGLE_API_KEY to your .env file</p>
+      </div>
+    );
+  }
 
   return isLoaded && addressSlice.lat ? (
     <div>

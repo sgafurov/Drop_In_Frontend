@@ -13,7 +13,7 @@ export default function SearchBar() {
 
   const [searchResult, setSearchResult] = useState("");
 
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: apiKey,
     libraries: placesLibrary,
@@ -32,6 +32,30 @@ export default function SearchBar() {
     } else {
       alert("Please enter an address");
     }
+  }
+
+  if (loadError) {
+    return (
+      <div className="autocomplete">
+        <div style={{ color: "red", padding: "10px" }}>
+          <strong>Google Maps API Error:</strong> {loadError.message || "API key is missing or expired"}
+          <br />
+          <small>Please check your REACT_APP_GOOGLE_API_KEY in the .env file</small>
+        </div>
+      </div>
+    );
+  }
+
+  if (!apiKey) {
+    return (
+      <div className="autocomplete">
+        <div style={{ color: "red", padding: "10px" }}>
+          <strong>Google Maps API Key Missing</strong>
+          <br />
+          <small>Please add REACT_APP_GOOGLE_API_KEY to your .env file</small>
+        </div>
+      </div>
+    );
   }
 
   return isLoaded ? (
