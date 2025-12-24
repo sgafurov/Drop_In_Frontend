@@ -8,7 +8,7 @@ import "../styles/Landing.css";
 export default function Landing() {
   return (
     <div className="landing-outer-container">
-      <div className="landing-page">
+    <div className="landing-page">
         <div className="landing-hero">
           <h1 className="landing-hero-title">Find your next apartment</h1>
           <h1 className="landing-hero-subtitle">on Drop In</h1>
@@ -33,14 +33,14 @@ export default function Landing() {
               <div className="landing-card-image">
                 <img src={buildings} alt="Apartment buildings" />
               </div>
-            </div>
-          </div>
+        </div>
+      </div>
 
           <div className="landing-card">
             <div className="landing-card-content reverse">
               <div className="landing-card-image">
                 <img src={person} alt="Person using computer" />
-              </div>
+        </div>
               <div className="landing-card-text">
                 <h2 className="landing-card-title">Rate Your Landlord</h2>
                 <h3 className="landing-card-subtitle">(anonymously)</h3>
@@ -48,13 +48,13 @@ export default function Landing() {
                   Read and anonymously share your rental experiences.
                 </p>
                 <p className="landing-card-description">
-                  Write about the pet policy, bed bug issues, and building management.
-                </p>
+            Write about the pet policy, bed bug issues, and building management.
+          </p>
               </div>
             </div>
-          </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

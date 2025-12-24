@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../constants";
 import Stars from "../review/Stars";
+import Rating from "../review/Rating";
 import "../../styles/UserReviews.css";
 
 export default function UserReviews() {
   const [username, setUsername] = useState("");
   const [_id, set_id] = useState("");
   const [newestReviewBtn, setNewestReviewBtn] = useState(false);
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    body: "",
+    rating: 0
+  });
   
   //array of objects to store all of our reviews
   const [userReviews, setUserReviews] = useState([
@@ -69,14 +75,28 @@ export default function UserReviews() {
       }
 
       //set the reviews to be the response of array of addresses received from the backend
-      // Check for timestamp in various possible field names
+      // Check for timestamp - prioritize updated timestamp over created timestamp
+      // MongoDB schema has explicit createdAt and updatedAt fields
+      // Backend returns these as Date objects or ISO strings
       const formattedReviews = resObject.map((review) => {
-        const timestamp = review.timestamp || 
-                         review.createdAt || 
-                         review.created_at || 
-                         review.date || 
-                         review.created || 
-                         review.time || "";
+        // Extract timestamps - backend schema explicitly defines these fields
+        const createdAt = review.createdAt || null;
+        const updatedAt = review.updatedAt || null;
+        
+        // Convert to strings if they're Date objects, or use as-is if strings
+        const createdAtStr = createdAt ? (createdAt instanceof Date ? createdAt.toISOString() : String(createdAt)) : null;
+        const updatedAtStr = updatedAt ? (updatedAt instanceof Date ? updatedAt.toISOString() : String(updatedAt)) : null;
+        
+        // Prioritize updatedAt if it exists and is different from createdAt (review was modified)
+        // Otherwise use createdAt (review hasn't been modified)
+        const timestamp = (updatedAtStr && updatedAtStr !== createdAtStr) ? updatedAtStr : createdAtStr || "";
+        
+        // Log which timestamp is being used for debugging
+        if (updatedAtStr && updatedAtStr !== createdAtStr) {
+          console.log(`Review ${review.review_id || review._id}: Using updatedAt (${updatedAtStr}) - review was modified`);
+        } else if (createdAtStr) {
+          console.log(`Review ${review.review_id || review._id}: Using createdAt (${createdAtStr}) - review not modified yet`);
+        }
         
         if (!timestamp && review) {
           console.warn("No timestamp found in review:", review);
@@ -85,10 +105,13 @@ export default function UserReviews() {
         return {
           body: review.review_body || review.body || "",
           author: review.username || review.author || "",
-          timestamp: timestamp,
+          timestamp: timestamp, // Display timestamp (prioritizes updatedAt)
+          createdAt: createdAtStr, // Store original creation time as string
+          updatedAt: updatedAtStr, // Store last update time as string
           address: review.address || "",
           rating: review.rating || "",
           _id: review._id || review.id || "",
+          review_id: review.review_id || review._id || review.id || "",
         };
       });
 
@@ -127,6 +150,111 @@ export default function UserReviews() {
     }
   };
 
+  const handleEditClick = (review) => {
+    // Use review_id as the identifier for editing
+    const reviewId = review.review_id || review._id;
+    setEditingReviewId(reviewId);
+    setEditFormData({
+      body: review.body,
+      rating: review.rating || 0
+    });
+    localStorage.setItem("rating", review.rating || 0);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingReviewId(null);
+    setEditFormData({
+      body: "",
+      rating: 0
+    });
+    localStorage.setItem("rating", 0);
+  };
+
+  const handleEditChange = (event) => {
+    const localRating = localStorage.getItem("rating");
+    setEditFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+      rating: localRating ? parseInt(localRating) : prevData.rating
+    }));
+  };
+
+  const handleUpdateReview = async (reviewId) => {
+    try {
+      const localRating = localStorage.getItem("rating");
+      const rating = localRating ? parseInt(localRating) : editFormData.rating;
+
+      if (!rating || rating === 0) {
+        alert("Please provide a star rating");
+        return;
+      }
+
+      if (!editFormData.body.trim()) {
+        alert("Review body cannot be empty");
+        return;
+      }
+
+      // Find the review to get the review_id
+      const reviewToUpdate = userReviews.find(r => r._id === reviewId || r.review_id === reviewId);
+      
+      // Backend expects review_id, not _id
+      const actualReviewId = reviewToUpdate ? (reviewToUpdate.review_id || reviewToUpdate._id) : reviewId;
+      
+      if (!actualReviewId) {
+        alert("Error: Review ID not found. Please try again.");
+        return;
+      }
+      
+      const updatePayload = {
+        review_id: actualReviewId,
+        review_body: editFormData.body,
+        rating: rating,
+      };
+
+      console.log("Updating review with payload:", updatePayload);
+
+      const res = await fetch(`${BASE_URL}/review/updateReview`, {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(updatePayload),
+      });
+
+      const resObject = await res.json();
+      console.log("Update review response:", resObject);
+      console.log("Updated review has updatedAt:", resObject.updatedAt);
+      console.log("Updated review has createdAt:", resObject.createdAt);
+
+      if (res.status === 400 || res.status === 403 || res.status === 404) {
+        throw resObject;
+      }
+
+      if (resObject.status == 400 || resObject.status == 403 || resObject.status == 404) {
+        throw resObject;
+      }
+
+      alert("Review updated successfully");
+      
+      // Refresh reviews to get the latest data with updatedAt
+      await getReviewsFromBackend();
+      
+      // Reset edit state
+      setEditingReviewId(null);
+      setEditFormData({
+        body: "",
+        rating: 0
+      });
+      localStorage.setItem("rating", 0);
+    } catch (err) {
+      console.log("Error updating review:", err);
+      const errorMessage = err.message || err.error || "Failed to update review. Please try again.";
+      alert(errorMessage);
+    }
+  };
+
   const reviewsToDisplay = newestReviewBtn ? sortReviewByNewest : userReviews;
   const filteredReviews = reviewsToDisplay.filter(item => item.body && item.body.trim() !== '');
 
@@ -153,6 +281,9 @@ export default function UserReviews() {
         <div className="user-reviews-list">
           {filteredReviews.map((item, index) => {
             const formattedDate = formatTimestamp(item.timestamp);
+            const itemId = item.review_id || item._id;
+            const isEditing = editingReviewId === itemId;
+            
             return (
               <div className="user-review-card" key={item._id || index}>
                 <div className="review-header">
@@ -161,18 +292,63 @@ export default function UserReviews() {
                     {item.address}
                   </div>
                   <div className="review-header-right">
-                    {formattedDate && (
-                      <div className="review-timestamp">
-                        <span className="timestamp-icon">🕒</span>
-                        {formattedDate}
-                      </div>
+                    {!isEditing && (
+                      <>
+                        <div className="review-header-right-top">
+                          {formattedDate && (
+                            <div className="review-timestamp">
+                              <span className="timestamp-icon">🕒</span>
+                              {formattedDate}
+                            </div>
+                          )}
+                          <div className="review-rating">
+                            <Stars rating={item.rating} />
+                          </div>
+                        </div>
+                        <button
+                          className="edit-review-btn"
+                          onClick={() => handleEditClick(item)}
+                          title="Edit review"
+                        >
+                          ✏️
+                        </button>
+                      </>
                     )}
-                    <div className="review-rating">
-                      <Stars rating={item.rating} />
-                    </div>
                   </div>
                 </div>
-                <div className="review-body">{item.body}</div>
+                
+                {isEditing ? (
+                  <div className="edit-review-form">
+                    <div className="edit-rating-section">
+                      <label>Rating:</label>
+                      <Rating initialRating={editFormData.rating} />
+                    </div>
+                    <textarea
+                      className="edit-review-textarea"
+                      name="body"
+                      value={editFormData.body}
+                      onChange={handleEditChange}
+                      placeholder="Edit your review..."
+                      rows="4"
+                    />
+                    <div className="edit-review-actions">
+                      <button
+                        className="save-review-btn"
+                        onClick={() => handleUpdateReview(item.review_id || item._id)}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="cancel-review-btn"
+                        onClick={handleCancelEdit}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="review-body">{item.body}</div>
+                )}
               </div>
             );
           })}

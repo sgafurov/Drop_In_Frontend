@@ -100,59 +100,59 @@ export default function SignUp() {
             <h1 className="signup-msg">Create an account</h1>
 
             <div className="signup-input-grid">
-              <label>
-                <input
-                  className="signup-input"
-                  placeholder="Email"
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                <input
-                  className="signup-input"
-                  placeholder="Username"
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                <input
-                  className="signup-input"
-                  placeholder="First Name"
-                  type="text"
-                  name="firstname"
-                  value={formData.firstname}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                <input
-                  className="signup-input"
-                  placeholder="Last Name"
-                  type="text"
-                  name="lastname"
-                  value={formData.lastname}
-                  onChange={handleChange}
-                />
-              </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Email"
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Username"
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="First Name"
+                type="text"
+                name="firstname"
+                value={formData.firstname}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <input
+                className="signup-input"
+                placeholder="Last Name"
+                type="text"
+                name="lastname"
+                value={formData.lastname}
+                onChange={handleChange}
+              />
+            </label>
               <label className="signup-input-full-width">
                 <input
                   className="signup-input"
                   placeholder="Create a Password"
-                  type="text"
+              type="text"
                   name="password"
                   value={formData.password}
-                  onChange={handleChange}
+              onChange={handleChange}
                 />
               </label>
               <label className="signup-input-full-width">
-                <SearchBar />
-              </label>
+              <SearchBar />
+            </label>
             </div>
 
             <h3>I am a</h3>

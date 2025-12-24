@@ -48,10 +48,18 @@ export default function ReviewForm() {
     console.log("current review", currentReview);
     event.preventDefault();
 
-    if (currentReview.star_rating == 0) {
+    // Check rating from localStorage or currentReview
+    const rating = parseInt(localStorage.getItem("rating")) || currentReview.rating || 0;
+    if (rating === 0) {
       alert("Provide a star rating");
       return;
     }
+
+    // Ensure rating is included in the payload
+    const reviewPayload = {
+      ...currentReview,
+      rating: rating
+    };
 
     try {
       const res = await fetch(`${BASE_URL}/review/postReview`, {
@@ -61,7 +69,7 @@ export default function ReviewForm() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(currentReview),
+        body: JSON.stringify(reviewPayload),
       });
 
       const resObject = await res.json();

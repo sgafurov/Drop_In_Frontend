@@ -65,7 +65,7 @@ export default function UserDashboard() {
             </h2>
           </div>
           <div className="reviews-content">
-            <UserReviews />
+          <UserReviews />
           </div>
         </div>
       </div>

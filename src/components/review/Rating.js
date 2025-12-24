@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/Rating.css";
 
-export default function Rating() {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+export default function Rating({ initialRating = 0 }) {
+  // Initialize from prop, localStorage, or default to 0
+  const getInitialRating = () => {
+    if (initialRating > 0) {
+      return initialRating;
+    }
+    const storedRating = localStorage.getItem("rating");
+    return storedRating ? parseInt(storedRating) : 0;
+  };
 
-  localStorage.setItem("rating", hover);
+  const [rating, setRating] = useState(getInitialRating());
+  const [hover, setHover] = useState(getInitialRating());
+
+  // Update localStorage when rating changes
+  useEffect(() => {
+    if (rating > 0) {
+      localStorage.setItem("rating", rating);
+    }
+  }, [rating]);
+
+  // Update hover state when initialRating prop changes
+  useEffect(() => {
+    if (initialRating > 0) {
+      setRating(initialRating);
+      setHover(initialRating);
+      localStorage.setItem("rating", initialRating);
+    }
+  }, [initialRating]);
 
   return (
     <div className="star-rating">

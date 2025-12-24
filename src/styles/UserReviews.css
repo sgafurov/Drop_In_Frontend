@@ -99,8 +99,108 @@
     flex-shrink: 0;
 }
 
+.review-header-right-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
 .review-rating {
     flex-shrink: 0;
+}
+
+.edit-review-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.edit-review-btn:hover {
+    opacity: 1;
+    background: rgba(102, 126, 234, 0.1);
+    transform: scale(1.1);
+}
+
+.edit-review-form {
+    margin-top: 1rem;
+}
+
+.edit-rating-section {
+    margin-bottom: 1rem;
+}
+
+.edit-rating-section label {
+    display: block;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.edit-review-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+}
+
+.edit-review-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.edit-review-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.save-review-btn,
+.cancel-review-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-review-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.save-review-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cancel-review-btn {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 2px solid #e9ecef;
+}
+
+.cancel-review-btn:hover {
+    background: #e9ecef;
+    color: #495057;
 }
 
 .review-body {
@@ -167,6 +267,7 @@
     .review-header-right {
         align-items: flex-start;
         width: 100%;
+        flex-direction: column;
     }
     
     .review-timestamp {
@@ -182,6 +283,15 @@
     }
     
     .sort-button {
+        width: 100%;
+    }
+
+    .edit-review-actions {
+        flex-direction: column;
+    }
+
+    .save-review-btn,
+    .cancel-review-btn {
         width: 100%;
     }
 }

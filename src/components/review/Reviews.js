@@ -92,11 +92,11 @@ export default function Reviews({ address }) {
       const formattedDate = formatTimestamp(item.createdAt);
       return (
         <div key={item.createdAt || index} className="review-card">
-          {item.body && (
-            <>
+        {item.body && (
+          <>
               <div className="review-header-reviews">
                 <div className="review-rating-reviews">
-                  <Stars rating={item.rating} />
+            <Stars rating={item.rating} />
                 </div>
                 {formattedDate && (
                   <div className="review-timestamp-reviews">
@@ -105,11 +105,11 @@ export default function Reviews({ address }) {
                   </div>
                 )}
               </div>
-              <div className="review-content">{item.body}</div>
-              <div className="review-author">{item.author}</div>
-            </>
-          )}
-        </div>
+            <div className="review-content">{item.body}</div>
+            <div className="review-author">{item.author}</div>
+          </>
+        )}
+      </div>
       );
     });
   }
