@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/userSlice";
 import AutoSearch from "./AutoSearch";
 // import logo from "../images/Drop In-logos_transparent copy.png"
-import logo from "../images/logo-only.png";
+import logo from "../images/drop-in-gradient.png";
 
 export default function Navbar() {
   let dispatch = useDispatch();
