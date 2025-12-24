@@ -12,6 +12,11 @@ export default function ApartmentView() {
   let dispatch = useDispatch();
   const addressSlice = useSelector((state) => state.addressSlice); // state refers to store.js
 
+  useEffect(() => {
+    console.log("ApartmentView - Address from Redux:", addressSlice.address);
+    console.log("ApartmentView - Address from localStorage:", localStorage.getItem("address"));
+  }, [addressSlice.address]);
+
   // useEffect(() => {
   //   if (localStorage.getItem("lat")) {
   //     dispatch(

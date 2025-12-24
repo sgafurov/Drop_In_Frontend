@@ -44,6 +44,14 @@ export default function ReviewForm() {
     });
   };
 
+  // Normalize address by removing ", USA" suffix for consistency
+  const normalizeAddress = (addr) => {
+    if (!addr) return addr;
+    const trimmed = addr.trim();
+    // Remove ", USA" or ", USA." from the end (case insensitive)
+    return trimmed.replace(/,\s*USA\.?$/i, "").trim();
+  };
+
   const handleSubmit = async (event) => {
     console.log("current review", currentReview);
     event.preventDefault();
@@ -55,9 +63,13 @@ export default function ReviewForm() {
       return;
     }
 
+    // Normalize address before saving
+    const normalizedAddress = normalizeAddress(currentReview.address);
+
     // Ensure rating is included in the payload
     const reviewPayload = {
       ...currentReview,
+      address: normalizedAddress,
       rating: rating
     };
 
