@@ -52,21 +52,31 @@
 
 .nav-buttons-logged-in {
     display: flex;
-    width: fit-content;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-profile-btn,
+.nav-logout-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .nav-logout-btn {
-    margin-left: 15px;
+    margin-left: 0;
 }
 
 a:link, a:visited, a:active {
     color: #667eea;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    display: inline-block;
+    line-height: 1.5;
+    vertical-align: middle;
 }
 
 .nav-logout-btn>span {
@@ -78,6 +88,8 @@ a:link, a:visited, a:active {
     border-radius: 8px;
     transition: all 0.3s ease;
     display: inline-block;
+    line-height: 1.5;
+    vertical-align: middle;
 }
 
 .nav-logout-btn:hover>span {
