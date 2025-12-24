@@ -1,62 +1,159 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Lexend+Peta:wght@300;400;600;700&display=swap'); */
-/* 
-.landing-page {
-    width: 1024px;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.content-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 20px;
-    align-items: center;
-} */
-
 .landing-outer-container {
-    margin: 0 auto;
-    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1rem;
 }
 
 .landing-page {
-    /* width: 1054px; */
-    max-width: 1024px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.content-card {
-    width: 100%;
+.landing-hero {
+    text-align: center;
+    color: white;
+    padding: 3rem 0 4rem 0;
+}
+
+.landing-hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: -1px;
+}
+
+.landing-hero-subtitle {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: -1px;
+}
+
+.landing-hero-description {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    margin: 0;
+    font-weight: 300;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.landing-content {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.landing-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.landing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+}
+
+.landing-card-content {
+    display: flex;
     align-items: center;
+    gap: 3rem;
+    padding: 3rem;
+}
+
+.landing-card-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.landing-card-text {
+    flex: 1;
+}
+
+.landing-card-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: #212529;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.landing-card-subtitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: #495057;
+}
+
+.landing-card-description {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.8;
+    margin: 0 0 1rem 0;
+}
+
+.landing-card-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-card-image img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Media query for smaller screens */
 @media only screen and (max-width: 768px) {
-    .landing-page {
-        width: 100%;
-        padding: 0 20px;
-        /* Add some padding to the sides for better readability */
+    .landing-outer-container {
+        padding: 1.5rem 1rem;
     }
 
-    .content-card {
-        flex-direction: column;
-        /* Stack the elements vertically on smaller screens */
-        text-align: center;
-        /* Center the text in each card */
+    .landing-hero {
+        padding: 2rem 0 3rem 0;
     }
 
-    .content-card:nth-child(2) {
-        flex-direction: column-reverse;
+    .landing-hero-title,
+    .landing-hero-subtitle {
+        font-size: 2.5rem;
     }
 
+    .landing-hero-description {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
 
-    /* You may want to adjust the width and height of your images for smaller screens */
-    img {
-        width: 50%;
-        height: auto;
+    .landing-card-content {
+        flex-direction: column !important;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .landing-card-title {
+        font-size: 2rem;
+    }
+
+    .landing-card-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .landing-card-description {
+        font-size: 1rem;
+    }
+
+    .landing-card-image img {
+        max-width: 250px;
     }
 }

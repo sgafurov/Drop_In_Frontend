@@ -62,18 +62,56 @@ export default function Reviews({ address }) {
     }
   }
 
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return null;
+    try {
+      const date = new Date(timestamp);
+      if (isNaN(date.getTime())) return null;
+      
+      const dateStr = date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      
+      const timeStr = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+      
+      return `${dateStr} at ${timeStr}`;
+    } catch (error) {
+      console.error('Error formatting timestamp:', error);
+      return null;
+    }
+  };
+
   function renderReviews(reviews) {
-    return reviews.map((item) => (
-      <div key={item.timestamp} className="review-card">
-        {item.body && (
-          <>
-            <Stars rating={item.rating} />
-            <div className="review-content">{item.body}</div>
-            <div className="review-author">{item.author}</div>
-          </>
-        )}
-      </div>
-    ));
+    return reviews.map((item, index) => {
+      const formattedDate = formatTimestamp(item.createdAt);
+      return (
+        <div key={item.createdAt || index} className="review-card">
+          {item.body && (
+            <>
+              <div className="review-header-reviews">
+                <div className="review-rating-reviews">
+                  <Stars rating={item.rating} />
+                </div>
+                {formattedDate && (
+                  <div className="review-timestamp-reviews">
+                    <span className="timestamp-icon">🕒</span>
+                    {formattedDate}
+                  </div>
+                )}
+              </div>
+              <div className="review-content">{item.body}</div>
+              <div className="review-author">{item.author}</div>
+            </>
+          )}
+        </div>
+      );
+    });
   }
 
   return (
