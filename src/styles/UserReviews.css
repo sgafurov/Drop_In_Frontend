@@ -1,40 +1,187 @@
 
-.user-reviews-title {
-    margin-top: 8%;
-    /* margin-left: 10%; */
-    font-size: 22px;
+.user-reviews-container {
+    width: 100%;
 }
 
-.user-reviews {
-    /* background-color: brown; */
-    /* width: 100%; */
-    margin: 0 auto;
+.sort-controls {
+    margin-bottom: 1.5rem;
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 3%;
-    justify-content: center;
-    align-items: center;
-    width: auto;
+    justify-content: flex-end;
+}
+
+.sort-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.sort-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.sort-button.active {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+}
+
+.user-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .user-review-card {
-    background-color: rgb(205, 205, 205);
-    max-width: 500px;
-    /* height: 100px; */
-    height: auto;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 5%;
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.user-review-content {
-    /* font-size: 18px; */
-    font-size: 110%;
+.user-review-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    transition: width 0.3s ease;
 }
 
-.user-review-author {
-    float: right;
-    margin-top: 20%;
-    font-size: 100%;
+.user-review-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #dee2e6;
+}
+
+.user-review-card:hover::before {
+    width: 6px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.review-address {
+    font-weight: 600;
+    color: #495057;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.address-icon {
+    font-size: 1.2rem;
+}
+
+.review-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.review-rating {
+    flex-shrink: 0;
+}
+
+.review-body {
+    color: #212529;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    border-left: 3px solid #667eea;
+}
+
+.review-timestamp {
+    font-size: 0.75rem;
+    color: #868e96;
+    font-weight: 400;
+    text-align: right;
+    letter-spacing: 0.3px;
+    margin-top: -0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+}
+
+.timestamp-icon {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+}
+
+.no-reviews-icon {
+    font-size: 4rem;
+    margin: 0 0 1rem 0;
+    opacity: 0.5;
+}
+
+.no-reviews-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+    margin: 0 0 0.5rem 0;
+}
+
+.no-reviews-subtext {
+    font-size: 1rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .review-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .review-header-right {
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .review-timestamp {
+        text-align: left;
+    }
+    
+    .review-rating {
+        align-self: flex-start;
+    }
+    
+    .sort-controls {
+        justify-content: center;
+    }
+    
+    .sort-button {
+        width: 100%;
+    }
 }

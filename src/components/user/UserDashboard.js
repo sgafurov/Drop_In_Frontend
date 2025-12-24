@@ -21,25 +21,54 @@ export default function UserDashboard() {
   });
 
   return (
-    <>
-      <div className="user-dashboard">
-        <h1>Hi, {userSlice.username}</h1>
-
-        <div>
-          <h3>My account details</h3>
-          <p>Firstname {userSlice.firstname}</p>
-          <p>Lastname {userSlice.lastname}</p>
-          <p>Username {userSlice.username}</p>
-          <p>Address {userSlice.address}</p>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <div className="welcome-section">
+          <h1 className="welcome-title">Welcome back, {userSlice.username}!</h1>
+          <p className="welcome-subtitle">Here's your account overview</p>
         </div>
       </div>
 
-      <div className="user-reviews">
-        <h3>My Reviews</h3>
-        <div>
-          <UserReviews />
+      <div className="dashboard-content">
+        <div className="account-card">
+          <div className="card-header">
+            <h2 className="card-title">
+              <span className="card-icon">👤</span>
+              Account Details
+            </h2>
+          </div>
+          <div className="card-body">
+            <div className="info-row">
+              <span className="info-label">First Name</span>
+              <span className="info-value">{userSlice.firstname}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Last Name</span>
+              <span className="info-value">{userSlice.lastname}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Username</span>
+              <span className="info-value">{userSlice.username}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Address</span>
+              <span className="info-value">{userSlice.address || "Not provided"}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="reviews-section">
+          <div className="section-header">
+            <h2 className="section-title">
+              <span className="card-icon">⭐</span>
+              My Reviews
+            </h2>
+          </div>
+          <div className="reviews-content">
+            <UserReviews />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

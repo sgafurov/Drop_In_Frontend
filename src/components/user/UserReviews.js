@@ -58,27 +58,42 @@ export default function UserReviews() {
 
       const resObject = await res.json();
 
-      console.log("line 48 of rendering user reviews", resObject);
+      console.log("Backend response for getUserReviews:", resObject);
+      if (resObject.length > 0) {
+        console.log("Sample review object from backend:", resObject[0]);
+        console.log("Available fields in review:", Object.keys(resObject[0]));
+      }
 
       if (resObject.status == 400) {
         throw resObject;
       }
 
       //set the reviews to be the response of array of addresses received from the backend
-      for (let i = 0; i < resObject.length; i++) {
-        setUserReviews((prev) => [
-          ...prev,
-          {
-            body: resObject[i].review_body,
-            author: resObject[i].username,
-            timestamp: resObject[i].timestamp,
-            address: resObject[i].address,
-            rating: resObject[i].rating,
-            // _id: resObject[i]._id,
-          },
-        ]);
-      }
-      console.log("userReviews ", userReviews);
+      // Check for timestamp in various possible field names
+      const formattedReviews = resObject.map((review) => {
+        const timestamp = review.timestamp || 
+                         review.createdAt || 
+                         review.created_at || 
+                         review.date || 
+                         review.created || 
+                         review.time || "";
+        
+        if (!timestamp && review) {
+          console.warn("No timestamp found in review:", review);
+        }
+        
+        return {
+          body: review.review_body || review.body || "",
+          author: review.username || review.author || "",
+          timestamp: timestamp,
+          address: review.address || "",
+          rating: review.rating || "",
+          _id: review._id || review.id || "",
+        };
+      });
+
+      setUserReviews(formattedReviews);
+      console.log("Formatted reviews with timestamps:", formattedReviews);
     } catch (err) {
       console.log("error : line 66 of rendering user reviews", err);
       if (err.status == 400) {
@@ -87,50 +102,82 @@ export default function UserReviews() {
     }
   };
 
-  return (
-    <>
-      <div>
-        <button onClick={handleSortByNewest}>SORT BY NEWEST</button>
-      </div>
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return null;
+    try {
+      const date = new Date(timestamp);
+      if (isNaN(date.getTime())) return null;
+      
+      const dateStr = date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      
+      const timeStr = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+      
+      return `${dateStr} at ${timeStr}`;
+    } catch (error) {
+      console.error('Error formatting timestamp:', error);
+      return null;
+    }
+  };
 
-      <div className="user-reviews">
-        {newestReviewBtn
-          ? sortReviewByNewest.map((item) => {
-              return (
-                <>
-                  {item.body ? (
-                    <div className="user-review-card" key={item._id}>
-                      <div className="user-review-content">
-                        ({item.address})
+  const reviewsToDisplay = newestReviewBtn ? sortReviewByNewest : userReviews;
+  const filteredReviews = reviewsToDisplay.filter(item => item.body && item.body.trim() !== '');
+
+  return (
+    <div className="user-reviews-container">
+      {filteredReviews.length > 0 && (
+        <div className="sort-controls">
+          <button 
+            className={`sort-button ${newestReviewBtn ? 'active' : ''}`}
+            onClick={handleSortByNewest}
+          >
+            {newestReviewBtn ? '✓ Sorted by Newest' : 'Sort by Newest'}
+          </button>
+        </div>
+      )}
+
+      {filteredReviews.length === 0 ? (
+        <div className="no-reviews">
+          <p className="no-reviews-icon">📝</p>
+          <p className="no-reviews-text">You haven't written any reviews yet.</p>
+          <p className="no-reviews-subtext">Start reviewing apartments to see them here!</p>
+        </div>
+      ) : (
+        <div className="user-reviews-list">
+          {filteredReviews.map((item, index) => {
+            const formattedDate = formatTimestamp(item.timestamp);
+            return (
+              <div className="user-review-card" key={item._id || index}>
+                <div className="review-header">
+                  <div className="review-address">
+                    <span className="address-icon">📍</span>
+                    {item.address}
+                  </div>
+                  <div className="review-header-right">
+                    {formattedDate && (
+                      <div className="review-timestamp">
+                        <span className="timestamp-icon">🕒</span>
+                        {formattedDate}
                       </div>
-                      <div className="user-review-content">{item.body}</div>
+                    )}
+                    <div className="review-rating">
                       <Stars rating={item.rating} />
                     </div>
-                  ) : (
-                    <p key={item._id}></p>
-                  )}
-                </>
-              );
-            })
-          : //If user sorts by new, then render the reviews by newest AKA sort by shortest timestamp. Else, show the reviews normally as they are added.
-            userReviews.map((item) => {
-              return (
-                <>
-                  {item.body ? (
-                    <div className="user-review-card" key={item._id}>
-                      <div className="user-review-content">
-                        ({item.address})
-                      </div>
-                      <div className="user-review-content">{item.body}</div>
-                      <Stars rating={item.rating} />
-                    </div>
-                  ) : (
-                    <p key={item._id}></p>
-                  )}
-                </>
-              );
-            })}
-      </div>
-    </>
+                  </div>
+                </div>
+                <div className="review-body">{item.body}</div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
