@@ -5,19 +5,23 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+.signup-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
 .signup-box {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	margin: 0 auto;
+	position: relative;
 	background-color: white;
 	border-radius: 24px;
 	width: 500px;
 	max-width: 90%;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 	padding: 2.5rem;
-	max-height: 90vh;
-	overflow-y: auto;
 }
 
 .signup-form {
@@ -56,14 +60,26 @@ body {
 	font-weight: 500;
 }
 
+.signup-input-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	width: 100%;
+	max-width: 300px;
+	margin-bottom: 0.5rem;
+}
+
+.signup-input-full-width {
+	grid-column: 1 / -1;
+}
+
 .signup-input {
 	background-color: #f8f9fa;
 	width: 100%;
-	max-width: 300px;
 	height: 50px;
 	border-radius: 12px;
 	border: 2px solid #e9ecef;
-	margin-top: 1rem;
+	margin-top: 0;
 	padding: 0 1rem;
 	font-size: 1rem;
 	transition: all 0.3s ease;
@@ -91,7 +107,7 @@ body {
 
 .signup-submit-btn {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	margin-top: 1.5rem;
+	margin-top: 2rem;
 	transition: all 0.3s ease;
 	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
@@ -150,6 +166,15 @@ body {
 	margin-top: 10px;
 }
 
+
+.signup-link-msg {
+	text-align: center;
+	width: 100%;
+	max-width: 300px;
+	font-size: 1rem;
+	margin: 1.5rem auto 0;
+	color: #495057;
+}
 
 .signup-footer-line {
 	width: 50%;
@@ -216,4 +241,15 @@ p a:any-link:hover {
 .signup-input-radio-landlord input[type="radio"] {
 	margin: 0;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+	.signup-input-grid {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+	
+	.signup-input-full-width {
+		grid-column: 1;
+	}
 }

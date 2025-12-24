@@ -92,74 +92,68 @@ export default function SignUp() {
     );
   } else {
     return (
-      <div>
+      <div className="signup-container">
         <div className="signup-box">
           <form onSubmit={handleSubmit} className="signup-form">
             <h1 className="signup-title">DROP-IN</h1>
 
             <h1 className="signup-msg">Create an account</h1>
 
-            <label>
-              <input
-                className="signup-input"
-                placeholder="Email"
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <input
-                className="signup-input"
-                placeholder="Username"
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <input
-                className="signup-input"
-                placeholder="Create a Password"
-                type="text"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <input
-                className="signup-input"
-                placeholder="First Name"
-                type="text"
-                name="firstname"
-                value={formData.firstname}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <input
-                className="signup-input"
-                placeholder="Last Name"
-                type="text"
-                name="lastname"
-                value={formData.lastname}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              {/* <input
-              className="login-input"
-              placeholder="Address"
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            /> */}
-              <SearchBar />
-            </label>
+            <div className="signup-input-grid">
+              <label>
+                <input
+                  className="signup-input"
+                  placeholder="Email"
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                <input
+                  className="signup-input"
+                  placeholder="Username"
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                <input
+                  className="signup-input"
+                  placeholder="First Name"
+                  type="text"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                <input
+                  className="signup-input"
+                  placeholder="Last Name"
+                  type="text"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                />
+              </label>
+              <label className="signup-input-full-width">
+                <input
+                  className="signup-input"
+                  placeholder="Create a Password"
+                  type="text"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </label>
+              <label className="signup-input-full-width">
+                <SearchBar />
+              </label>
+            </div>
 
             <h3>I am a</h3>
             <div className="signup-input-radios">
@@ -194,7 +188,7 @@ export default function SignUp() {
 						<p className="google-text">Continue with Google</p>
 					</button> */}
 
-            <p className="signup-msg">
+            <p className="signup-link-msg">
               Already have an account? <Link to="/login">Login</Link>
             </p>
             <hr className="signup-footer-line" />
