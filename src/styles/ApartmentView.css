@@ -31,6 +31,26 @@
     flex: 1;
     min-width: 300px;
     max-width: 500px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.map-div {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.reviews-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -55,6 +75,11 @@
 
     .streetview-div {
         margin-bottom: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .map-div {
         width: 100%;
         max-width: 100%;
     }

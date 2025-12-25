@@ -179,7 +179,7 @@ export default function Reviews({ address }) {
           <h1 className="reviews-title">What residents have to say ...</h1>
 
           {userReviews.length > 0 && (
-            <div>
+            <div className="sort-btn-container">
               <button
                 onClick={() => {
                   setSortByNewest(true);

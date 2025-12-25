@@ -7,13 +7,21 @@
     text-align: center;
 }
 
+.sort-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
 .reviews {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    width: auto;
+    width: 100%;
+    max-width: 1200px;
     gap: 1.5rem;
     padding: 0 1rem;
 }
@@ -113,7 +121,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .sort-btn:hover {
@@ -136,9 +144,11 @@
         margin-left: 0;
     }
 
-    .sort-btn {
-        margin-left: 0;
+    .sort-btn-container {
         margin-bottom: 1.5rem;
+    }
+
+    .sort-btn {
         width: 100%;
         max-width: 300px;
     }
