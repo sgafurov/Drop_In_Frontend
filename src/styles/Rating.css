@@ -16,4 +16,37 @@
 
 .star-rating {
     font-size: 120%;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star {
+    font-size: 1.2em;
+    display: inline-block;
+    line-height: 1;
+}
+
+.filled-star {
+    color: rgb(234, 203, 27);
+}
+
+.half-star {
+    position: relative;
+    display: inline-block;
+    color: #ccc;
+}
+
+.half-star::after {
+    content: '★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: rgb(234, 203, 27);
+}
+
+.empty-star {
+    color: #ccc;
 }

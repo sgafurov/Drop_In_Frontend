@@ -3,7 +3,7 @@
     margin-bottom: 1.5rem;
     font-size: 2rem;
     font-weight: 700;
-    color: #212529;
+    color: rgba(255, 255, 255, 0.9);
     text-align: center;
 }
 
@@ -29,7 +29,8 @@
 .review-card {
     margin: 0;
     margin-bottom: 0;
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
+    background: rgba(255, 255, 255, 0.8);
     width: 100%;
     max-width: 500px;
     height: auto;

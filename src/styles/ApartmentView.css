@@ -12,9 +12,60 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: white;
-    text-align: center;
+    text-align: left;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     padding: 1rem;
+}
+
+.apt-rating-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.apt-rating-stars {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.apt-rating-text {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.apt-rating-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.apt-rating-count {
+    font-size: 2rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.no-reviews-message-header {
+    text-align: left;
+    padding: 0.5rem 0;
+}
+
+.no-reviews-message-header p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
 }
 
 .apt-visuals {

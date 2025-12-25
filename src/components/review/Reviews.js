@@ -5,16 +5,23 @@ import Stars from "./Stars";
 import Loading from "../Loading";
 import "../../styles/Reviews.css";
 
-export default function Reviews({ address }) {
+export default function Reviews({ address, onAverageRatingChange }) {
   const [isLoading, setIsLoading] = useState(false);
   const [sortByNewest, setSortByNewest] = useState(false);
   const [userReviews, setUserReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     setSortByNewest(false);
     if (address) {
       console.log("props.address", address);
       getReviewsFromBackend();
+    } else {
+      // Reset average rating when address changes
+      setAverageRating(0);
+      if (onAverageRatingChange) {
+        onAverageRatingChange(0, 0);
+      }
     }
   }, [address]);
 
@@ -110,6 +117,22 @@ export default function Reviews({ address }) {
 
       console.log("Mapped reviews:", mappedReviews);
       setUserReviews(mappedReviews);
+      
+      // Calculate average rating
+      if (mappedReviews.length > 0) {
+        const totalRating = mappedReviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+        const avgRating = totalRating / mappedReviews.length;
+        setAverageRating(avgRating);
+        // Notify parent component of the average rating
+        if (onAverageRatingChange) {
+          onAverageRatingChange(avgRating, mappedReviews.length);
+        }
+      } else {
+        setAverageRating(0);
+        if (onAverageRatingChange) {
+          onAverageRatingChange(0, 0);
+        }
+      }
     } catch (err) {
       if (err.status == 400) {
         alert(err.message);
@@ -156,7 +179,6 @@ export default function Reviews({ address }) {
                 </div>
                 {formattedDate && (
                   <div className="review-timestamp-reviews">
-                    <span className="timestamp-icon">🕒</span>
                     {formattedDate}
                   </div>
                 )}
