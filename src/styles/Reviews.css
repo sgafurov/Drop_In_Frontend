@@ -4,24 +4,24 @@
     font-size: 2rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.9);
-    text-align: center;
+    text-align: left;
+    padding: 0 1rem;
 }
 
 .sort-btn-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 1.5rem;
     width: 100%;
+    padding: 0 1rem;
 }
 
 .reviews {
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
-    max-width: 1200px;
     gap: 1.5rem;
     padding: 0 1rem;
 }
@@ -31,8 +31,9 @@
     margin-bottom: 0;
     /* background: #f8f9fa; */
     background: rgba(255, 255, 255, 0.8);
-    width: 100%;
-    max-width: 500px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
     height: auto;
     padding: 1.5rem;
     border-radius: 16px;
