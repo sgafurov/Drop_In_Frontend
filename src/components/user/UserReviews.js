@@ -258,6 +258,73 @@ export default function UserReviews() {
     }
   };
 
+  const handleDeleteReview = async (reviewId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this review? This action cannot be undone.");
+    
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const reviewToDelete = userReviews.find(r => r._id === reviewId || r.review_id === reviewId);
+      const actualReviewId = reviewToDelete ? (reviewToDelete.review_id || reviewToDelete._id) : reviewId;
+      
+      if (!actualReviewId) {
+        alert("Error: Review ID not found. Please try again.");
+        return;
+      }
+
+      const res = await fetch(`${BASE_URL}/review/deleteReview`, {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          review_id: actualReviewId,
+        }),
+      });
+
+      let resObject;
+      try {
+        const text = await res.text();
+        resObject = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        // Handle non-JSON responses (e.g., HTML error pages)
+        if (res.status === 404) {
+          throw { message: "Review not found", status: 404 };
+        }
+        throw { message: "Server error occurred", status: res.status || 500 };
+      }
+
+      if (res.status === 400 || res.status === 403 || res.status === 404) {
+        throw resObject;
+      }
+
+      if (resObject.status == 400 || resObject.status == 403 || resObject.status == 404) {
+        throw resObject;
+      }
+
+      alert("Review deleted successfully");
+      
+      await getReviewsFromBackend();
+      
+      if (editingReviewId === actualReviewId || editingReviewId === reviewId) {
+        setEditingReviewId(null);
+        setEditFormData({
+          body: "",
+          rating: 0
+        });
+        dispatch(clearRating());
+      }
+    } catch (err) {
+      console.log("Error deleting review:", err);
+      const errorMessage = err.message || err.error || "Failed to delete review. Please try again.";
+      alert(errorMessage);
+    }
+  };
+
   const reviewsToDisplay = newestReviewBtn ? sortReviewByNewest : userReviews;
   const filteredReviews = reviewsToDisplay.filter(item => item.body && item.body.trim() !== '');
 
@@ -308,13 +375,22 @@ export default function UserReviews() {
                             <Stars rating={item.rating} />
                           </div>
                         </div>
-                        <button
-                          className="edit-review-btn"
-                          onClick={() => handleEditClick(item)}
-                          title="Edit review"
-                        >
-                          ✏️
-                        </button>
+                        <div className="review-actions">
+                          <button
+                            className="edit-review-btn"
+                            onClick={() => handleEditClick(item)}
+                            title="Edit review"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            className="delete-review-btn"
+                            onClick={() => handleDeleteReview(item.review_id || item._id)}
+                            title="Delete review"
+                          >
+                            🗑️
+                          </button>
+                        </div>
                       </>
                     )}
                   </div>

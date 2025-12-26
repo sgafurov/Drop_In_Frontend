@@ -24,6 +24,15 @@ This document outlines the automated regression testing setup for the Drop-In Fr
      - Navigation after successful login
      - Error handling (400, 500)
      - Loading states
+   
+   - **UserReviews Component** (`UserReviews.test.js`)
+     - Delete review functionality
+     - Confirmation dialog
+     - Successful deletion
+     - Error handling (400, 403, 404, non-JSON responses)
+     - Review list refresh after deletion
+     - Edit state reset when deleting edited review
+     - Missing review ID handling
 
 ### 2. **Redux Store Tests**
    - **userSlice.test.js** - User state management
@@ -74,6 +83,7 @@ Current test files:
 - ✅ `src/components/review/Rating.test.js`
 - ✅ `src/components/review/ReviewForm.test.js`
 - ✅ `src/components/login-signup/Login.test.js`
+- ✅ `src/components/user/UserReviews.test.js`
 - ✅ `src/store/userSlice.test.js`
 - ✅ `src/store/addressSlice.test.js`
 - ✅ `src/store/reviewSlice.test.js`
@@ -108,9 +118,10 @@ Current test files:
 3. **CI/CD Integration** - Run tests on every commit/PR
 4. **Additional Component Tests**:
    - SignUp component
-   - Reviews component
+   - Reviews component (building reviews display)
    - UserDashboard component
    - ApartmentView component
+   - Edit review functionality in UserReviews
 5. **Performance Tests** - Test component render times
 6. **Accessibility Tests** - Add @testing-library/jest-dom a11y matchers
 
