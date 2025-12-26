@@ -111,8 +111,6 @@
     width: 100%;
     max-width: 350px;
     height: auto;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Media query for smaller screens */
