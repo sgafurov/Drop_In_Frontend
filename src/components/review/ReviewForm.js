@@ -58,6 +58,12 @@ export default function ReviewForm() {
       return;
     }
 
+    // Check review body
+    if (!currentReview.review_body.trim()) {
+      alert("Review body cannot be empty");
+      return;
+    }
+
     // Normalize address before saving
     const normalizedAddress = normalizeAddress(currentReview.address);
 
