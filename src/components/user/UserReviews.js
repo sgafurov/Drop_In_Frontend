@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setRating, clearRating } from "../../store/reviewSlice";
 import { BASE_URL } from "../../constants";
 import Stars from "../review/Stars";
 import Rating from "../review/Rating";
 import "../../styles/UserReviews.css";
 
 export default function UserReviews() {
+  const dispatch = useDispatch();
+  const rating = useSelector((state) => state.reviewSlice.rating);
   const [username, setUsername] = useState("");
   const [_id, set_id] = useState("");
   const [newestReviewBtn, setNewestReviewBtn] = useState(false);
@@ -154,11 +158,12 @@ export default function UserReviews() {
     // Use review_id as the identifier for editing
     const reviewId = review.review_id || review._id;
     setEditingReviewId(reviewId);
+    const reviewRating = review.rating || 0;
     setEditFormData({
       body: review.body,
-      rating: review.rating || 0
+      rating: reviewRating
     });
-    localStorage.setItem("rating", review.rating || 0);
+    dispatch(setRating(reviewRating));
   };
 
   const handleCancelEdit = () => {
@@ -167,24 +172,22 @@ export default function UserReviews() {
       body: "",
       rating: 0
     });
-    localStorage.setItem("rating", 0);
+    dispatch(clearRating());
   };
 
   const handleEditChange = (event) => {
-    const localRating = localStorage.getItem("rating");
     setEditFormData((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
-      rating: localRating ? parseInt(localRating) : prevData.rating
+      rating: rating !== null ? parseInt(rating) : prevData.rating
     }));
   };
 
   const handleUpdateReview = async (reviewId) => {
     try {
-      const localRating = localStorage.getItem("rating");
-      const rating = localRating ? parseInt(localRating) : editFormData.rating;
+      const currentRating = rating !== null ? parseInt(rating) : editFormData.rating;
 
-      if (!rating || rating === 0) {
+      if (!currentRating || currentRating === 0) {
         alert("Please provide a star rating");
         return;
       }
@@ -208,7 +211,7 @@ export default function UserReviews() {
       const updatePayload = {
         review_id: actualReviewId,
         review_body: editFormData.body,
-        rating: rating,
+        rating: currentRating,
       };
 
       console.log("Updating review with payload:", updatePayload);
@@ -247,7 +250,7 @@ export default function UserReviews() {
         body: "",
         rating: 0
       });
-      localStorage.setItem("rating", 0);
+      dispatch(clearRating());
     } catch (err) {
       console.log("Error updating review:", err);
       const errorMessage = err.message || err.error || "Failed to update review. Please try again.";

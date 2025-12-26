@@ -9,12 +9,13 @@ import "../../styles/ReviewForm.css";
 import { BASE_URL } from "../../constants";
 
 import { useDispatch } from "react-redux";
-import { setReview } from "../../store/reviewSlice";
+import { setReview, clearRating } from "../../store/reviewSlice";
 import { setIsLoggedIn } from "../../store/userSlice";
 
 export default function ReviewForm() {
   const { isLoggedIn, username, _id } = useSelector((state) => state.userSlice);
   const { address } = useSelector((state) => state.addressSlice);
+  const rating = useSelector((state) => state.reviewSlice.rating);
   let dispatch = useDispatch();
 
   const unique_id = uuid();
@@ -29,16 +30,10 @@ export default function ReviewForm() {
   });
 
   const handleChange = (event) => {
-    let localRating = localStorage.getItem("rating");
-    console.log("localRating ", localRating);
-    let updatedRating = {
-      ...currentReview,
-      rating: localRating,
-    };
-    setCurrentReview(updatedRating);
     setCurrentReview((prevData) => {
       return {
         ...prevData,
+        rating: rating || 0,
         [event.target.name]: event.target.value,
       };
     });
@@ -56,9 +51,9 @@ export default function ReviewForm() {
     console.log("current review", currentReview);
     event.preventDefault();
 
-    // Check rating from localStorage or currentReview
-    const rating = parseInt(localStorage.getItem("rating")) || currentReview.rating || 0;
-    if (rating === 0) {
+    // Check rating from Redux state
+    const currentRating = rating !== null ? parseInt(rating) : 0;
+    if (currentRating === 0 || isNaN(currentRating)) {
       alert("Provide a star rating");
       return;
     }
@@ -70,7 +65,7 @@ export default function ReviewForm() {
     const reviewPayload = {
       ...currentReview,
       address: normalizedAddress,
-      rating: rating
+      rating: currentRating
     };
 
     try {
@@ -102,7 +97,7 @@ export default function ReviewForm() {
           address: address,
           review_id: currentReview.review_id,
           review_body: currentReview.review_body,
-          star_rating: currentReview.rating,
+          rating: currentRating,
         })
       );
     } catch (err) {
@@ -121,7 +116,8 @@ export default function ReviewForm() {
       rating: 0,
     }));
 
-    localStorage.setItem("rating", 0);
+    // Clear rating from Redux
+    dispatch(clearRating());
     window.location.reload();
   };
 

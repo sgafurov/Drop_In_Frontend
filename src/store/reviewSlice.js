@@ -19,8 +19,14 @@ export const reviewSlice = createSlice({
       state.review_body = action.payload.review_body;
       state.rating = action.payload.rating;
     },
+    setRating: (state, action) => {
+      state.rating = action.payload;
+    },
+    clearRating: (state) => {
+      state.rating = null;
+    },
   },
 });
 
-export const { setReview } = reviewSlice.actions;
+export const { setReview, setRating, clearRating } = reviewSlice.actions;
 export default reviewSlice.reducer;

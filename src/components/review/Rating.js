@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setRating as setRatingAction } from "../../store/reviewSlice";
 import "../../styles/Rating.css";
 
 export default function Rating({ initialRating = 0 }) {
-  // Initialize from prop, localStorage, or default to 0
-  const getInitialRating = () => {
-    if (initialRating > 0) {
-      return initialRating;
-    }
-    const storedRating = localStorage.getItem("rating");
-    return storedRating ? parseInt(storedRating) : 0;
-  };
+  const dispatch = useDispatch();
+  const reduxRating = useSelector((state) => state.reviewSlice.rating);
+  
+  // Initialize: prefer initialRating prop, then Redux state, default to 0
+  const initialValue = initialRating > 0 ? initialRating : (reduxRating !== null ? reduxRating : 0);
+  const [rating, setRating] = useState(initialValue);
+  const [hover, setHover] = useState(initialValue);
 
-  const [rating, setRating] = useState(getInitialRating());
-  const [hover, setHover] = useState(getInitialRating());
-
-  // Update localStorage when rating changes
+  // Update Redux when rating changes
   useEffect(() => {
     if (rating > 0) {
-      localStorage.setItem("rating", rating);
+      dispatch(setRatingAction(rating));
     }
-  }, [rating]);
+  }, [rating, dispatch]);
 
   // Update hover state when initialRating prop changes
   useEffect(() => {
     if (initialRating > 0) {
       setRating(initialRating);
       setHover(initialRating);
-      localStorage.setItem("rating", initialRating);
+      dispatch(setRatingAction(initialRating));
     }
-  }, [initialRating]);
+  }, [initialRating, dispatch]);
+
+  // Sync local state with Redux state when it changes externally
+  useEffect(() => {
+    if (reduxRating !== null && reduxRating !== rating && initialRating === 0) {
+      setRating(reduxRating);
+      setHover(reduxRating);
+    }
+  }, [reduxRating, initialRating]);
 
   return (
     <div className="star-rating">
