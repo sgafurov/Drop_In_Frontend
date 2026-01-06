@@ -90,7 +90,7 @@ export default function Login() {
     );
   } else {
     return (
-      <div>
+      <div className="login-container">
         <div className="login-box">
           <form onSubmit={handleSubmit} className="login-form">
             <h1 className="login-title">DROP-IN</h1>

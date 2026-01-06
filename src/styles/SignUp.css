@@ -8,9 +8,9 @@ body {
 .signup-container {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 2rem 1rem;
+    padding: 4rem 1rem 2rem;
 }
 
 .signup-box {
